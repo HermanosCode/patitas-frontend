@@ -9,20 +9,26 @@ import { useState } from "react";
 
  const LoginSingUp = () => {
 
-     const [isRegistering,setIsRegistering] = useState(false);
-     const [showPassword,setShowPassword] = useState(false);
+     // Estado para verificar si el usuario esta registrado o no 
+     const [isRegisterPage,setIsRegisterPage] = useState(false);
 
+     // Estado para gestionar la visibilidad de la contraseña
+     const [showPassword,setShowPassword] = useState(false);
+     
+     // Función para alternar entre la página de registro y la de inicio de sesión
      const handleToggleMode = () => {
-        setIsRegistering(!isRegistering);
+      setIsRegisterPage(!isRegisterPage);
     };
 
+     // Función para alternar la visibilidad de la contraseña
      const togglePassword =() => {
       setShowPassword(!showPassword);
      };
 
-    const classInput = isRegistering ? "register" : "login"
+     // Determina la clase de estilo según si es la página de registro o de inicio de sesión
+    const classInput = isRegisterPage ? "register" : "login"
 
-
+    //Componente para registrarse o iniciar sesión 
     return (
        
           <div className="login-container">
@@ -30,8 +36,8 @@ import { useState } from "react";
               <img  src="src/images/huella.png" alt="huella animal" />
             </div>
             <form className= "content-container" action="">
-              <h1>{isRegistering ? 'Registro' : 'LogIn'}</h1>
-              {isRegistering && (
+              <h1>{isRegisterPage ? 'Registro' : 'LogIn'}</h1>
+              {isRegisterPage && (
                 <div className= "imput-box">
                   <FaUser className={`icon ${classInput}`} />
                   <input type="text" placeholder="Usuario" required/>
@@ -49,18 +55,18 @@ import { useState } from "react";
               </div>
       
               <div className="forgot-container">
-                {!isRegistering && (
+                {!isRegisterPage && (
                   <span className="span"> Olvidaste tu contraseña?</span>
                 )}
               </div>
               <button type="submit" className={`btn ${classInput}`}>
-                {isRegistering ? 'Registrar' : 'Logear'}
+                {isRegisterPage ? 'Registrar' : 'Logear'}
               </button>
               <div className="container-cuenta">
                 <p>
-                  {isRegistering ? 'Ya tienes una cuenta?' : 'No tienes una cuenta?'}
+                  {isRegisterPage ? 'Ya tienes una cuenta?' : 'No tienes una cuenta?'}
                   <span className="span" onClick={handleToggleMode}>
-                    {isRegistering ? 'Logearse' : 'Registrarse'}
+                    {isRegisterPage ? 'Logearse' : 'Registrarse'}
                   </span>
                 </p>
               </div>
@@ -68,5 +74,4 @@ import { useState } from "react";
           </div>
         );
 }      
-
  export default LoginSingUp

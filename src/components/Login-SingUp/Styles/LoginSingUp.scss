@@ -4,7 +4,6 @@
     overflow: hidden
 }
 
-
 .logo{
     display: flex;
     justify-content: center;
@@ -24,7 +23,6 @@
     }
 }
 
-
 .login-container {
     display: flex;
     justify-content: center;
@@ -36,7 +34,6 @@
 
 }
   
-
 .content-container{
     background-color: #FFF8E5;
     border: 3px solid #E05D5D;
@@ -56,8 +53,6 @@
 }
 
 
-
-
 .imput-box {
     display: flex;
     align-items: center;
@@ -69,7 +64,6 @@
     margin: 25px 0px;
     gap: 15px;
 
-
     input{
         display: flex;
         align-items: center;
@@ -80,17 +74,14 @@
         outline: none;
         color: #E05D5D;
         
-
         &::placeholder{
             color:#E05D5D;
         }
-
 
         &:focus{
             color: #E05D5D;
         }
 
-        
         &:focus::placeholder{
             color: transparent;
         }
@@ -102,7 +93,6 @@
     color: #E05D5D;
 }
     
-
 .icon.register{
     font-size: 18px;
 }
@@ -110,7 +100,6 @@
 .icon{
     font-size: 25px;
 }
-
 
 
 .icon-eye{
@@ -121,7 +110,6 @@
     color: #E05D5D;
     cursor: pointer;
 }
-
 
 .icon-eye.register{
     font-size: 18px;
@@ -151,7 +139,6 @@
     transition: background-color 0.3s, transform 0.3s; 
     cursor: pointer;
 
-
     &:hover{
         background-color: #FF9801;
         transform: scale(1.11);
@@ -168,7 +155,6 @@
 .btn.login{
     margin: 30px 0px;  
 }
-
 
 
 .container-cuenta{
