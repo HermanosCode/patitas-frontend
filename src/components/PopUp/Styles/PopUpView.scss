@@ -11,7 +11,6 @@ body{
     padding: 40px;
     justify-content: center;
     
-
     .btnPopUp-open{
       background-color: #1766DC;
       color: #fff;
@@ -23,13 +22,10 @@ body{
       font-family: 'Roboto', sans-serif;
       font-weight: 500;
 
-   
-  
       &:hover {
-      background-color: rgba(38, 105, 230, 0.932);
+        background-color: rgba(38, 105, 230, 0.932);
       }
   }
-
 
     .overlay {
       width: 100vw;
@@ -45,7 +41,6 @@ body{
       z-index: 1000;
     }
 
-  
     .popUp-content {
       width: 500px;
       min-height: 100px;
@@ -62,14 +57,11 @@ body{
       animation: animation 0.5s ease-out;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       
-
       p{
         font-size: 30px;
         margin-bottom: 70px;
       }
     }
-
-    
 
     .popUp-button {
       width: 100;
@@ -86,7 +78,6 @@ body{
       cursor: pointer;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       
-
       &:hover{
         background-color: #FF9801;
         transform: scale(1.11);
@@ -94,7 +85,6 @@ body{
       }   
   }
     
-
     @keyframes animation {
       from {
         transform: translateY(-50%);
