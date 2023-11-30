@@ -2,20 +2,13 @@ import { SideBarMenu } from './components/SideBar/SideBarMenu';
 import { SideBarMenuCard} from './types/SideBarMenu';
 import ProfileImage from './images/cv.jpg';
 import { SideBarItems } from "./utils/utils";
-import  { Fragment, useState } from 'react';
-import  PopUp  from "./components/PopUp/PopUp";
-import LoginSingUp from "./components/Login-SingUp/LoginSingUp"
+import LoginSingUp from './components/Login-SingUp/LoginSingUp';
 
 function App() {
-  
-    return (
-      <>
-      <PopUp message='Su mascota ha sido publicada correctamente'/>
+    return(
       <LoginSingUp/>
-      </>
-      
-      
     )
+    
   /*
   /*Esta data vendria del backend 
   const card : SideBarMenuCard= {
