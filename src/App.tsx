@@ -10,7 +10,7 @@ function App() {
   
     return (
       <>
-      <PopUp status={500} message='Su mascota ha sido publicada correctamente'/>
+      <PopUp message='Su mascota ha sido publicada correctamente'/>
       <LoginSingUp/>
       </>
       
