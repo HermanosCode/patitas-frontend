@@ -1,5 +1,3 @@
-
-
 import { Route, Routes } from 'react-router-dom';
 import ContentIndex from './components/IndexPage/ContentIndexPage';
 import Footer from './components/IndexPage/Footer';
@@ -21,6 +19,7 @@ import { IndexPage } from './components/IndexPage/IndexPage';
 function App() {
   
 
+
   return (
     <>
     <Routes>
@@ -35,6 +34,7 @@ function App() {
    
    </>
   )
+  */
 }
 
 export default App
