@@ -1,5 +1,5 @@
 
-
 export interface PopUpProps {
-    message : string
+    message : string;
+    onClose: () => void;
 }

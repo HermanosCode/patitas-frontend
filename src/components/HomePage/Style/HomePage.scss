@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@200&family=Love+Ya+Like+A+Sister&family=Raleway&display=swap');
+
+
+
+.homePage-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 45px;
+}
+
+
+
+.introduction-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 170px;
+    gap: 70px;
+    
+    
+
+    img{
+        width: 550px;
+        height: 550px;
+    }
+}
+
+.logo-container{
+    width: 550px;
+    height: 550px;
+    background-color:#fdd79d ;
+    border-radius: 50%;
+}
+
+
+
+.introduction-text{
+  
+
+    h2{
+       color: #225b77;
+       margin-bottom: 20px;
+       font-size: 45px;
+       letter-spacing: 1px;
+       font-family: 'Love Ya Like A Sister', cursive;
+    }
+
+    p{
+       padding: 10px 0px;
+       font-size: 16px;
+       font-family: 'Barlow', sans-serif;
+       letter-spacing: 1px;
+       font-weight: 600;
+       color : #384861;
+       width: 85%;
+       line-height: 20px;
+    }
+    
+}
+
+
+.userData-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 150px 0px;
+    padding: 50px 70px;
+    padding-bottom: 30px;
+    width: 50%;
+    background-color: #fdd79d;
+    border-radius: 20px;
+
+    h2{
+        margin-bottom: 30px;
+        font-size: 40px; 
+        color :#225b77;
+        letter-spacing: 2px;
+        font-family: 'Love Ya Like A Sister', cursive;
+    }
+
+    p{
+       
+       font-size: 16px;
+       font-family: 'Barlow', sans-serif;
+       letter-spacing: 1px;
+       font-weight: 600;
+       color : #384961;
+       padding: 10px;
+       line-height: 20px;
+    }
+
+    button{
+        margin: 30px;
+        font-size: 15px;
+        text-transform: uppercase;
+        padding: 13px 35px;
+        border-radius:25px;
+        font-family: 'Raleway', sans-serif;
+        letter-spacing: 1px;
+        background-color:#225b77 ;
+        border: none;
+        color: #FFF8E5;
+        transition-duration: 0.5s;
+        cursor: pointer;
+
+        &:hover{
+            background-color: #2a7da7;
+           
+        }
+    }
+}
+
+
+.adoptPet-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 200px;
+    margin-bottom: 150px;
+    gap: 70px;
+
+    img{
+        width: 450px;
+        height: 450px;
+        border-radius: 50%;  
+    }
+
+    
+}
+
+.adopt-text{
+    
+    h2{
+        color: #225b77;
+        margin-bottom: 20px;
+        font-size: 40px;
+        text-align: center;
+        letter-spacing: 2px;
+        font-family: 'Love Ya Like A Sister', cursive;
+     }
+ 
+     p{
+        padding: 10px;
+        font-size: 16px;
+        font-family: 'Barlow', sans-serif;
+        letter-spacing: 1px;
+        font-weight: 600;
+        color : #384961;
+        width: 85%;
+        line-height: 20px;
+     }
+
+     button{
+        margin: 30px;
+        font-size: 15px;
+        text-transform: uppercase;
+        padding: 13px 35px;
+        border-radius:25px;
+        font-family: 'Raleway', sans-serif;
+        letter-spacing: 1px;
+        background-color:#225b77 ;
+        border: none;
+        color: #FFF8E5;
+        transition-duration: 0.5s;
+        cursor: pointer;
+
+        &:hover{
+            background-color: #2a7da7;
+            
+        }
+    }
+
+}
+
+
+
+.postPet-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fdd79d; 
+  padding: 0px 200px;
+  padding-bottom: 100px;
+  padding-top: 50px;
+  gap: 20px;
+
+    img{
+        width: 450px;
+        height: 450px;
+        border-radius: 50%;   
+    }
+  
+}
+
+
+
+
+
+.post-text{
+   
+
+    h2{
+        color: #225b77;
+        margin-bottom: 20px;
+        font-size: 40px;
+        text-align: center;
+        letter-spacing: 2px;
+        font-family: 'Love Ya Like A Sister', cursive;
+     }
+ 
+     p{
+        padding: 10px;
+        font-size: 16px;
+        font-family: 'Barlow', sans-serif;
+        letter-spacing: 1px;
+        font-weight: 600;
+        color : #384961;
+        line-height: 20px;
+        width: 85%;
+     }
+
+     button{
+        margin: 30px;
+        font-size: 15px;
+        text-transform: uppercase;
+        padding: 13px 35px;
+        border-radius:25px;
+        font-family: 'Raleway', sans-serif;
+        letter-spacing: 1px;
+        background-color:#225b77 ;
+        border: none;
+        color: #FFF8E5;
+        transition-duration: 0.5s;
+        cursor: pointer;
+        
+
+        &:hover{
+            background-color: #2a7da7;
+           
+        }
+    }
+}
+
+
+
+

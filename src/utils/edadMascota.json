@@ -1,0 +1,143 @@
+[
+    {
+        "value" : "-1 mes",
+        "label" : "-1 mes" 
+
+    },
+    {
+        "value" : "1 mes",
+        "label" : "1 mes" 
+
+    },
+    {
+        "value" : "2 meses",
+        "label" : "2 meses" 
+
+    },
+    {
+        "value" : "3 meses",
+        "label" : "3 meses" 
+        
+    },
+    {
+        "value" : "4 meses",
+        "label" : "4 meses" 
+
+    },
+    {
+        "value" : "5 meses",
+        "label" : "5 meses" 
+
+    },
+    {
+        "value" : "6 meses",
+        "label" : "6 meses" 
+
+    },
+    {
+        "value" : "7 meses",
+        "label" : "7 meses" 
+
+    },
+    {
+        "value" : "8 meses",
+        "label" : "8 meses" 
+
+    },
+    {
+        "value" : "9 meses",
+        "label" : "9 meses" 
+
+    },
+    {
+        "value" : "10 meses",
+        "label" : "10 meses" 
+
+    },
+    {
+        "value" : "11 meses",
+        "label" : "11 meses" 
+
+    },
+    {
+        "value" : "1 año",
+        "label" : "1 año" 
+
+    },
+    {
+        "value" : "2 años",
+        "label" : "2 años" 
+
+    },
+    {
+        "value" : "3 años",
+        "label" : "3 años" 
+
+    },
+    {
+        "value" : "4 años",
+        "label" : "4 años" 
+
+    },
+    {
+        "value" : "5 años",
+        "label" : "5 años" 
+
+    },
+    {
+        "value" : "6 años",
+        "label" : "6 años" 
+
+    },
+    {
+        "value" : "7 años",
+        "label" : "7 años" 
+
+    },
+    {
+        "value" : "8 años",
+        "label" : "8 años" 
+
+    },
+    {
+        "value" : "9 años",
+        "label" : "9 años" 
+
+    },
+    {
+        "value" : "10 años",
+        "label" : "10 años" 
+
+    },
+    {
+        "value" : "11 años",
+        "label" : "11 años" 
+
+    },
+    {
+        "value" : "12 años",
+        "label" : "12 años" 
+
+    },
+    {
+        "value" : "13 años",
+        "label" : "13 años" 
+
+    },
+    {
+        "value" : "14 años",
+        "label" : "14 años" 
+
+    },
+    {
+        "value" : "15 años",
+        "label" : "15 años" 
+
+    },
+    {
+        "value" : "+15 años",
+        "label" : "+15 años" 
+
+    }
+
+]

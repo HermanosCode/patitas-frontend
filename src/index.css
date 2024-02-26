@@ -1,3 +1,19 @@
+body {
+  background-color: #FFF8E5;
+}
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos globales para el scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #fdd79d;
+}
 
 
