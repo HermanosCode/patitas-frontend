@@ -1,0 +1,181 @@
+
+
+.logo-logIn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px;
+    height: 250px;
+    background-color: #fdd79d;
+    border: 3px solid #E05D5D;
+    border-radius: 100%;
+    z-index: 999;
+    margin: -95px;
+
+
+    img{
+        width: 180px;
+        height: 180px;
+    }
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #225b77;
+    
+    
+}
+  
+.content-container-logIn{
+    background-color: #fdd79d;
+    border: 3px solid #E05D5D;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 450px;
+    height: 480px;
+    text-align: center;
+
+    h1{
+        color: #225b77;
+        margin-top: 70px;
+        font-size: 35px;
+        text-decoration: underline;
+        padding-bottom: 10px;
+        padding-top: 8px;
+        letter-spacing: 4px;
+        font-family: 'Love Ya Like A Sister', cursive;
+    }
+}
+
+
+.imput-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFF8E5;
+    border-radius: 20px;
+    border: 2px solid #E05D5D;
+    padding:15px;
+    margin: 25px 0px;
+    gap: 15px;
+
+    input{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        background:transparent;
+        border: none;
+        outline: none;
+        color: #225b77;
+        font-family: 'Raleway', sans-serif;
+        font-size: 15px;
+        
+        &::placeholder{
+            color:#225b77;
+        }
+
+        &:focus{
+            color: #225b77;
+        }
+
+        &:focus::placeholder{
+            color: transparent;
+        }
+    }
+}
+
+
+.icon {
+    color: #225b77;
+}
+    
+.icon.register{
+    font-size: 18px;
+}
+
+.icon{
+    font-size: 25px;
+}
+
+
+.icon-eye{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 5px;
+    color: #225b77;
+    cursor: pointer;
+}
+
+.icon-eye.register{
+    font-size: 18px;
+}
+
+.icon-eye.login{
+    font-size: 25px;
+}
+
+
+.forgot-container{
+    padding: 0px 10px;
+    color:#225b77 ;
+    font-size: 16px;
+    font-family: 'Raleway', sans-serif;
+}  
+
+
+.btn{
+    padding: 13px 70px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #FFF8E5;
+    background-color: #225b77;
+    border: none;
+    border-radius:25px;
+    font-family: 'Raleway', sans-serif;
+    transition-duration: 0.5s;
+    cursor: pointer;
+    outline: none;
+    
+    &:hover{
+        background-color: #2a7da7;
+    }   
+}
+ 
+.btn.register{
+    margin-top: 5px;
+    margin-bottom: 22px;
+}
+ 
+
+.btn.login{
+    margin: 30px 0px;  
+}
+
+
+.container-cuenta{
+    color: #225b77;
+    font-size: 16px;
+    font-family: 'Raleway', sans-serif;
+
+    span{
+        margin-left: 15px ;
+        color: #E05D5D;
+    }
+}
+
+
+.span{
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 800;
+}
+
+  
+

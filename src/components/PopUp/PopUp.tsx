@@ -1,38 +1,23 @@
-import { useState } from "react";
+
 import { PopUpProps } from "../../types/PopUp";
-import './styles/PopUpView.scss';
+import './Style/PopUp.scss';
+import { Link } from "react-router-dom"
 
 
+const PopUp = ({  message,onClose }: PopUpProps) => {
 
-
-
-
-
-const PopUp = ({  message }: PopUpProps) => {
-    const [showPopUp, setShowPopUp] = useState(false);
-  
-    const  togglePopUp =()  => {
-      setShowPopUp(!showPopUp);
-    }
-   
-   
-    
     return (
-      <div className="popUp-container">
-        {!showPopUp && (
-          <button className="btnPopUp-open" onClick={togglePopUp}>Mostrar PopUp</button>
-        )}
-
-        {showPopUp && (
           <div className="overlay">
             <div className="popUp-content" >
               <p > {message} </p>
-              <button className="popUp-button" onClick={togglePopUp}>Aceptar</button>
+              {message === 'El usuario ha sido creado' ? (
+                <Link to="/home-page"><button className="popUp-button">Aceptar</button> </Link>
+                ):(
+                  <button className="popUp-button" onClick={onClose}>Aceptar</button>
+                )}
             </div>
           </div>
-        )}
-      </div>
-    );
-}
+    )
+  }
 
 export default PopUp
