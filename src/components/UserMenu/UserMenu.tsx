@@ -15,7 +15,7 @@ const UserMenu = () => {
   
   const handleLogout = async () => {
     try {
-      const apiUrl = `${import.meta.env.VITE_BASE_URL}/logout`;
+      const apiUrl = `${import.meta.env.VITE_BASE_URL}/auth/logout`;
       await axios.delete(apiUrl,{
         withCredentials : true
       }); 
