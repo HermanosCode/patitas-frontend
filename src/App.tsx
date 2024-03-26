@@ -8,6 +8,9 @@ import HomePage from './components/HomePage/HomePage';
 
 
 
+
+
+
 function App() {
   
  
@@ -17,11 +20,12 @@ function App() {
     <Routes>
       <Route path='/home-page' element={<HomePage/>} />
       <Route path='/' element={<LoginSingUp/>} />
-      <Route path='/datos-personales' element={<h1>datos</h1>} />
+      <Route path='/datos-personales' element={ <h1>Personal Data</h1> } />
       <Route path='/patitas-publicadas' element={<h1>publicada</h1>} />
       <Route path='/patitas-favoritas' element={<h1>favorita</h1>} />
       {/*<Route path='/adoptar-patita' element={<AdoptPage/>} /> */}
       <Route path='/publicar-patita' element={<PublishPage/>} />
+      <Route path='/patitas-perdidas' element={<h1>patitas perdidas</h1>} />
     </Routes>
   )
 } 

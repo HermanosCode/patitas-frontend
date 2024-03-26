@@ -1,0 +1,169 @@
+.background {
+    width: 100%;
+    /* O cualquier otro ancho que desees */
+    height: 90vh;
+    /* O cualquier otro alto que desees, aquí usamos el 100% de la altura de la ventana gráfica */
+    background-image: url('src/images/adopta.png');
+    /* Especifica la ruta de la imagen que quieres utilizar */
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
+
+}
+
+
+.background::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35%;
+    /* Altura de la zona de desenfoque */
+    background: linear-gradient(to bottom, rgba(231, 228, 228, 0) 0%, rgb(255, 255, 255) 100%);
+    /* Gradiente transparente a blanco */
+    filter: blur(20px);
+    /* Aplica un desenfoque a la zona */
+}
+
+.container-introduction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+.introduction-adoptPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 150px 0px;
+    padding: 50px 70px;
+    padding-bottom: 30px;
+    width: 50%;
+    background-color: #fdd79d;
+    border-radius: 20px;
+
+    h1 {
+        margin-bottom: 30px;
+        font-size: 40px;
+        color: #225b77;
+        letter-spacing: 2px;
+        font-family: 'Love Ya Like A Sister', cursive;
+    }
+
+    p {
+
+        font-size: 16px;
+        font-family: 'Barlow', sans-serif;
+        letter-spacing: 1px;
+        font-weight: 600;
+        color: #384961;
+        padding: 10px;
+        line-height: 20px;
+    }
+
+}
+
+.search-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: #225b77;
+    letter-spacing: 2px;
+    font-family: 'Love Ya Like A Sister', cursive;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: 40px;
+}
+
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    margin: 0px 40px 0px 40px;
+
+
+}
+
+.icon-search {
+    font-size: 32px;
+    color: #E05D5D;
+}
+
+.button-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80px;
+    border-radius: 8px;
+    padding: 5px;
+    cursor: pointer;
+
+
+
+    &:hover {
+        background-color: #2a7da7;
+
+    }
+
+    &:hover .icon-search {
+        color: #FFF8E5;
+    }
+
+    &:hover p {
+        color: #FFF8E5;
+    }
+
+    p {
+        font-size: 19px;
+        font-family: 'Barlow', sans-serif;
+        font-weight: 600;
+        color: #225b77;
+        letter-spacing: 1px;
+    }
+
+}
+
+
+
+.container-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 7px 10px;
+}
+
+
+.container-select {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    margin-left: 50px;
+    margin-right: 100px;
+}
+
+
+.pet-container {
+    background-color: #FFF8E5;
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 100px;
+}

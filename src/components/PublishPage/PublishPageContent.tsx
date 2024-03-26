@@ -1,15 +1,17 @@
 
-import axios from 'axios';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import './Style/PublishPageContent.scss'
 import { FaCloudUploadAlt } from "react-icons/fa";
 import Select from 'react-select';
 import edadMascota from '../../utils/edadMascota.json';
+import axios, { AxiosResponse } from 'axios';
 import PopUp from '../PopUp/PopUp';
-import './Style/PublishPageContent.scss';
+
+
+
 
 
 const PublishPageContent = () => {
-
 
     //Estados de los campos de entrada
     const [image, setImage] = useState<File | null>(null);
@@ -22,6 +24,11 @@ const PublishPageContent = () => {
     const [disabilityPet, setDisabilityPet] = useState<boolean | null>(null)
     const [veterinaryCare, setVeterinaryCare] = useState<boolean | null>(null)
     const [petInfo, setPetInfo] = useState("")
+    const [province, setProvince] =  useState("");
+    const [optionsProvincias, setOptionsProvincia] = useState([])
+    const [location, setLocation] = useState("")
+    const [optionsLocalidad, setOptionsLocalidad] = useState([])
+
 
     //Mostrar popUp, indicar mensaje y menu del select
     const [showPopUp, setShowPopUp] = useState(false)
@@ -63,7 +70,19 @@ const PublishPageContent = () => {
     const handlePetAge = (option: any) => {
         setPetAge(option.value);
     }
+
+    
+
+    //handle de valor provincia
+    const handlePronvincia = (option: any) => {
+        setProvince(option.value);
+        setLocation("")
+        obtenerLocalidad(option.value)
+    }
+
+ 
     //Handle genero mascota change
+
     const handleGenderPetChange = (tipo: string) => {
         setGenderPet(tipo)
     }
@@ -101,6 +120,57 @@ const PublishPageContent = () => {
     }
 
 
+    useEffect(() => {
+        const obtenerProvincias = () => {
+            axios.get("https://apis.datos.gob.ar/georef/api/provincias")
+                .then((res: AxiosResponse) => {
+                    if (res.status === 200) {
+                        return res.data.provincias;
+                    } else {
+                        return Promise.reject(res);
+                    }
+                })
+                .then(provincias => {
+                    const opcionesProvincias = provincias.map((provincia: any) => ({
+                        value: provincia.nombre,
+                        label: provincia.nombre
+                    }));
+                    setOptionsProvincia(opcionesProvincias)
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        };
+
+        obtenerProvincias();
+    }, []);
+
+
+    const obtenerLocalidad = (provincia: string) => {
+
+        const cantidadLocalidades = 900;
+
+        axios.get(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincia}&max=${cantidadLocalidades}`)
+            .then((res) => {
+                if (res.status === 200) {
+
+                    const opcionesMunicipio = res.data.municipios.map((municipio: any) => ({
+                        value: municipio.nombre,
+                        label: municipio.nombre
+                    }));
+                    setOptionsLocalidad(opcionesMunicipio);
+                } else {
+                    return Promise.reject(res);
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener localidades:', error);
+            });
+
+    }
+
+
+
     //Handle para actualizar el popUp
     const handlePopUp = (message: string) => {
         setPopUpMessage(message);
@@ -115,66 +185,84 @@ const PublishPageContent = () => {
 
     //Funcion para validar que el formulario este completo 
     const validateForm = () => {
-        return (!petName || !petRace || !petAge || !contactNumber || !genderPet || !typePet || !petInfo || !image || disabilityPet === null || !veterinaryCare === null);
+        return (!petName || !petRace || !petAge || !contactNumber || !genderPet || !typePet || !petInfo || !image || disabilityPet === null || veterinaryCare === null
+            || !province || !location);
     }
+
+
+
 
     //Handle para publicar mascota
     const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-        event?.preventDefault()
-
+        event?.preventDefault();
+    
         if (validateForm()) {
-            handlePopUp("Todos los campos son obligatorios. Por favor, completar la información.")
+            handlePopUp("Todos los campos son obligatorios.Por favor, completar la información.");
         } else {
-
-
+            
             const apiUrl = `${import.meta.env.VITE_BASE_URL}/pet/publish`;
-
-            if (image) {
-                const formData = new FormData();
-                formData.append('pet_photo', (new File([image], image.name)));                
-                formData.append('pet_name', petName);
-                formData.append('pet_race', petRace);
-                formData.append('pet_age', petAge);
-                formData.append('contact_number', contactNumber);
-                formData.append('pet_gender', genderPet === "Macho" ? '1' : '0');
-                formData.append('pet_type', typePet === "Gato" ? '1' : '0');
-                formData.append('pet_disability', disabilityPet ? '1' : '0');
-                formData.append('veterinary_care', veterinaryCare ? '1' : '0');
-                formData.append('pet_description', petInfo);
-
+    
+        if (image !== null) {
                 try {
-                    const response = await axios.post(apiUrl, formData, {
-                        withCredentials: true,
-                        headers: {
-                            'Content-Type': 'multipart/form-data',
-                        },
-                    });
-                    if (response.status === 200) {
-                        handlePopUp(response.data.message)
-                    }
-                } catch (error: any) {
-                    handlePopUp(error.response.data.message)
+                    const formData = new FormData();
+                    formData.append('pet_photo',(new File([image], image.name)));
+                    formData.append('pet_name', petName);
+                    formData.append('pet_race', petRace);
+                    formData.append('pet_age', petAge);
+                    formData.append('contact_number', contactNumber);
+                    formData.append('pet_gender', genderPet === "Macho" ? 'Macho' : 'Hembra');
+                    formData.append('pet_type', typePet === "Gato" ? 'Gato' : 'Perro');
+                    formData.append('pet_disability', disabilityPet ? '1' : '0');
+                    formData.append('veterinary_care', veterinaryCare ? '1' : '0');
+                    formData.append('pet_description', petInfo);
+                    formData.append('pet_province', province);
+                    formData.append('pet_location', location);
+    
+                   
+                        const response = await axios.post(apiUrl, formData, {
+                            withCredentials: true,
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                            },
+                        });
+                        if (response.status === 200) {
+                            handlePopUp(response.data.message);
+                            handleReset()
+                            
+                        }
+                    
+                } catch (error : any) {
+                    handlePopUp(error.response.data.message);
                 }
             }
         }
-    }
-
-
+    };
 
 
     //Handle reseteo publicacion
     const handleReset = () => {
-        setPetName(""),
+            setPetName(""),
             setPetRace(""),
             setContactNumber(""),
-            setPetInfo(""),
             setPetAge(""),
+            setLocation(""),
+            setProvince("")
             setGenderPet(""),
             setTypePet(""),
             setDisabilityPet(null),
             setVeterinaryCare(null),
-            setImage(null)
-    }
+            setPetInfo(""),
+            setImage(null) 
+
+
+        // Obtener todos los inputs de tipo radio dentro del contenedor con la clase "checkbox-container"
+        const radioButtonsReset = document.querySelectorAll('.checkbox-container input[type="radio"]');
+        
+        radioButtonsReset.forEach(button => {
+            (button as HTMLInputElement).checked = false;
+        });   
+}
+    
 
 
     // Estilos para el componente Select 
@@ -187,13 +275,15 @@ const PublishPageContent = () => {
             marginTop: "11px",
             fontSize: "17px",
             outline: "none",
-            width: "100%",
+            width: "260px",
             height: "41px",
             fontFamily: 'Barlow, sans-serif',
             letterSpacing: "0.5px",
             padding: "0px 5px",
             boxShadow: "none",
             cursor: "pointer",
+            color: "#225b77",
+            fontWeight: "200",
 
             '&:hover': {
                 borderColor: "#E05D5D",
@@ -201,11 +291,12 @@ const PublishPageContent = () => {
         }),
         input: (style: any) => ({
             ...style,
-            display: 'none',
+            color: "#225b77"
         }),
         singleValue: (styles: any) => ({
             ...styles,
-            color: "#225b77"
+            color: "#225b77",
+            width: "100%",
         }),
         option: (styles: any, { isSelected }: { isSelected: boolean }) => ({
             ...styles,
@@ -307,10 +398,21 @@ const PublishPageContent = () => {
 
             <div className='huellas'></div>
 
-            <h3 className='title-form'>Formulario Mascota</h3>
+
+            <h3 className='title-form'>Formulario de publicación mascota</h3>
             <div className='form-container'>
 
                 <form className='form-publishPage'>
+                    <input
+                        accept="image/*"
+                        type="file"
+                        id="image-load"
+                        name='image'
+                        hidden
+                        onChange={handleImageChance}
+                        required
+                    />
+            
                     <div className="header-form">
                         <div className="pet-photo" onClick={handleUploadImageClick}>
                             {image ?
@@ -322,15 +424,6 @@ const PublishPageContent = () => {
                                 </>
                             }
                         </div>
-                        <input
-                            accept="image/*"
-                            type="file"
-                            id="image-load"
-                            name='image'
-                            hidden
-                            onChange={handleImageChance}
-                            required
-                        />
                     </div>
                     <div className="text-container">
                         <div className="imput-text">
@@ -345,6 +438,23 @@ const PublishPageContent = () => {
                         </div>
 
                         <div className="imput-text">
+                            <label htmlFor="edad-mascota"> Edad Mascota</label>
+                            <Select
+                                id="edad-mascota"
+                                styles={customStyles}
+                                maxMenuHeight={130}
+                                options={edadMascota}
+              
+                                required
+                                onChange={handlePetAge}
+                                placeholder="Seleccionar edad ..."
+                                isSearchable
+                            />
+                        </div>
+
+
+
+                        <div className="imput-text">
                             <label htmlFor="raza-mascota"> Raza Mascota</label>
                             <input
                                 value={petRace}
@@ -355,15 +465,16 @@ const PublishPageContent = () => {
                             />
                         </div>
                         <div className="imput-text">
-                            <label htmlFor="edad-mascota"> Edad Mascota</label>
+                            <label htmlFor="provincia">Provicia</label>
                             <Select
-                                id="edad-mascota"
+                                id="provincia"
                                 styles={customStyles}
                                 maxMenuHeight={130}
-                                options={edadMascota}
+                                options={optionsProvincias}
                                 required
-                                onChange={handlePetAge}
-                                placeholder="Seleccionar ..."
+                                onChange={handlePronvincia}
+                                placeholder="Seleccionar provincia ..."
+                                isSearchable
                             />
                         </div>
                         <div className="imput-text">
@@ -376,6 +487,20 @@ const PublishPageContent = () => {
                                 className='imput-number'
                                 required />
                         </div>
+                        <div className="imput-text">
+                            <label htmlFor="localidad">Localidad</label>
+                            <Select
+                                id='localidad'
+                                styles={customStyles}
+                                maxMenuHeight={130}
+                                options={optionsLocalidad}
+                                required
+                                onChange={handleLocalidad}
+                                placeholder="Seleccionar localidad ..."
+                                isSearchable
+                            />
+                        </div>
+
                     </div>
 
                     <div className="footer-form">

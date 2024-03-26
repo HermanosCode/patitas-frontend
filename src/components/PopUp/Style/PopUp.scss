@@ -26,11 +26,11 @@
       text-align: center;
       background-color: #FFF8E5;
       color: #E05D5D;
-      border: 3px solid #E05D5D;
+      border: 2px solid #fdd79d;
       border-radius: 15px;
       box-shadow: rgba(100,100, 111,0.35) 0px 7xp 29px 0px;
       animation: animation-popUp 0.5s ease-out;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Barlow', sans-serif;
       
 
       p{
@@ -41,6 +41,7 @@
 
 
     .popUp-button {
+      border: none;
       width: 100;
       font-size: 15px;
       font-weight: 500;
@@ -48,17 +49,17 @@
       margin-bottom: 10px;
       letter-spacing: 1px;
       color:#FFF8E5;
-      background-color: #FFB344;
-      border: 2px solid #E05D5D;
+      background-color: #225b77;
       border-radius: 100px;
       transition: .2s;
       cursor: pointer;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Raleway', sans-serif;
+      text-transform: uppercase;
       
 
       &:hover{
-        background-color: #FF9801;
-        transform: scale(1.11);
+        background-color: #2a7da7;
+       
         
       }   
   }
