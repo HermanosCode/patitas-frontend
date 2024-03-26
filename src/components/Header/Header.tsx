@@ -41,13 +41,18 @@ const Header = () => {
 
       <nav className="nav-container">
         <Link to="/adoptar-patita">Adoptar Patita</Link>
-        <Link to="/patitas-perdidas">Patitas Perdidas</Link>
+
+         <Link to="/publicar-patita">Publicar patita</Link>
+        
+
+       <Link to="/patitas-perdidas">Patitas Perdidas</Link>
+
         <div className="logo-header">
           <Link to="/home-page" className="logo-href" >
             <img src="src/images/logoCircular.png" alt="logo-patita" />
           </Link>
         </div>
-        <Link to="/publicar-patita">Publicar patita</Link>
+        <a href="">Patitas Perdidas</a>
         <a href="">A ver</a>
       </nav>
     </header>

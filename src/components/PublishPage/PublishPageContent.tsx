@@ -2,10 +2,12 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import './Style/PublishPageContent.scss'
 import { FaCloudUploadAlt } from "react-icons/fa";
-import PopUp from '../PopUp/PopUp';
 import Select from 'react-select';
 import edadMascota from '../../utils/edadMascota.json';
 import axios, { AxiosResponse } from 'axios';
+import PopUp from '../PopUp/PopUp';
+
+
 
 
 
@@ -68,6 +70,7 @@ const PublishPageContent = () => {
     const handlePetAge = (option: any) => {
         setPetAge(option.value);
     }
+
     
 
     //handle de valor provincia
@@ -77,12 +80,9 @@ const PublishPageContent = () => {
         obtenerLocalidad(option.value)
     }
 
-    //handle de valor localidad
-    const handleLocalidad = (option: any) => {
-        setLocation(option.value);
-    }
-    
-    //handle valor genero de mascota
+ 
+    //Handle genero mascota change
+
     const handleGenderPetChange = (tipo: string) => {
         setGenderPet(tipo)
     }
@@ -170,6 +170,7 @@ const PublishPageContent = () => {
     }
 
 
+
     //Handle para actualizar el popUp
     const handlePopUp = (message: string) => {
         setPopUpMessage(message);
@@ -199,7 +200,7 @@ const PublishPageContent = () => {
             handlePopUp("Todos los campos son obligatorios.Por favor, completar la información.");
         } else {
             
-            const apiUrl = `${import.meta.env.VITE_BASE_URL}/publicar`;
+            const apiUrl = `${import.meta.env.VITE_BASE_URL}/pet/publish`;
     
         if (image !== null) {
                 try {
@@ -219,6 +220,7 @@ const PublishPageContent = () => {
     
                    
                         const response = await axios.post(apiUrl, formData, {
+                            withCredentials: true,
                             headers: {
                                 'Content-Type': 'multipart/form-data',
                             },
@@ -262,6 +264,7 @@ const PublishPageContent = () => {
 }
     
 
+
     // Estilos para el componente Select 
     const customStyles = {
         control: (styles: any) => ({
@@ -289,7 +292,6 @@ const PublishPageContent = () => {
         input: (style: any) => ({
             ...style,
             color: "#225b77"
-
         }),
         singleValue: (styles: any) => ({
             ...styles,
@@ -396,6 +398,7 @@ const PublishPageContent = () => {
 
             <div className='huellas'></div>
 
+
             <h3 className='title-form'>Formulario de publicación mascota</h3>
             <div className='form-container'>
 
@@ -409,6 +412,7 @@ const PublishPageContent = () => {
                         onChange={handleImageChance}
                         required
                     />
+            
                     <div className="header-form">
                         <div className="pet-photo" onClick={handleUploadImageClick}>
                             {image ?
@@ -432,6 +436,7 @@ const PublishPageContent = () => {
                                 required
                             />
                         </div>
+
                         <div className="imput-text">
                             <label htmlFor="edad-mascota"> Edad Mascota</label>
                             <Select
@@ -439,13 +444,16 @@ const PublishPageContent = () => {
                                 styles={customStyles}
                                 maxMenuHeight={130}
                                 options={edadMascota}
-                                
+              
                                 required
                                 onChange={handlePetAge}
                                 placeholder="Seleccionar edad ..."
                                 isSearchable
                             />
                         </div>
+
+
+
                         <div className="imput-text">
                             <label htmlFor="raza-mascota"> Raza Mascota</label>
                             <input

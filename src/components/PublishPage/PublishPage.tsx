@@ -6,10 +6,10 @@ import PublishPageContent from "./PublishPageContent"
 const PublishPage = () => {
     return (
         <>
-         <Header/>
-         <PublishPageContent/>
-         <Footer/>
-         </>
+            <Header />
+            <PublishPageContent />
+            <Footer />
+        </>
     )
 }
 
