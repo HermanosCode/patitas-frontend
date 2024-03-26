@@ -125,7 +125,8 @@
     img{
         width: 450px;
         height: 450px;
-        border-radius: 50%;  
+        border-radius: 50%; 
+        object-fit: cover;
     }
 
     
@@ -190,7 +191,8 @@
     img{
         width: 450px;
         height: 450px;
-        border-radius: 50%;   
+        border-radius: 50%;
+        object-fit: cover;
     }
   
 }

@@ -155,11 +155,10 @@
     flex-direction: column;
     margin-top: 70px;
     margin-bottom: 80px;
-    background-color:#fdd79d ;
-    border-bottom-left-radius: 15%;
-    border-top-right-radius: 15%;
-    border-top-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    background-color:#FFF8E5 ;
+    border-radius: 20px;
+    box-shadow: 1px 1px 9px 3px rgba(228, 166, 72, 0.9);
+    
 
 }
 
@@ -192,23 +191,26 @@
     align-items: center;
     background-color: #FFF8E5;
     border-radius: 30px;
-    height: 350px;
-    width: 320px;
-    border: 1px solid #E05D5D;
+    height: 345px;
+    width: 400px;
+    border: 3px dotted #2a7da7;
     margin-top: 20px;
     cursor: pointer;
     
+    
     img{
-        width: 320px;
+        width: 400px;
         height: 350px;
-        border-radius: 29px;
+        border-radius: 27px;
+        object-fit: cover;
+        
         
     }
 
     p{
         font-size: 25px;
         padding: 10px;
-        color: #225b77;
+        color: #2a7da7;
         font-family: 'Barlow', sans-serif;
         font-weight: 600;
 
@@ -217,8 +219,13 @@
 }
 
 .icon-load{
-    color: #225b77;
+    color: #2a7da7;
     font-size: 50px;
+    transition-duration: 0.5s;
+
+    &:hover{
+        transform: scale(1.2);
+    }
 }
 
 
@@ -245,8 +252,8 @@
     
     input{
         background-color: #FFF8E5;
-        border: 1px solid #E05D5D;
-        border-radius: 5px;
+        border: none;
+        border-bottom: 1px solid #E05D5D;
         outline: none;
         color: #225b77;
         font-size: 17px;
@@ -330,13 +337,13 @@
     h3{
         font-size: 25px;
         font-weight: 500;
-        color: #225b77;
+        color: #E05D5D;
     }
 
     textarea{
         margin: 20px 20px;
         color: #225b77;
-        border: 1px solid #E05D5D;
+        border: 1px solid #2a7da7;
         border-radius: 10px;
         background-color: #FFF8E5;
         outline: none;
@@ -347,6 +354,7 @@
         height: 130px;
         font-weight: 500;
         font-family: 'Barlow', sans-serif; 
+        letter-spacing: 1.5px;
 
         
         &::-webkit-scrollbar {
@@ -366,7 +374,7 @@
     margin-bottom: 35px;
     background-color: #225b77;
     color: #FFF8E5;
-    font-family: 'Barlow', sans-serif; 
+    font-family: 'Raleway', sans-serif;
     border: none;
     letter-spacing: 1px;
     transition-duration: 0.5s;

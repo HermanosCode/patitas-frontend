@@ -1,0 +1,183 @@
+.overlay-pet {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo negro semitransparente */
+    z-index: 1;
+    /* Asegura que esté encima de todo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+
+
+}
+
+.menu-pet {
+    background-color: #FFF8E5;
+    /* Color de fondo del menú */
+    display: flex;
+    border-radius: 15px;
+    width: auto;
+
+
+}
+
+.img-menuPet {
+    border-top-left-radius: 13px;
+}
+
+.more-img {
+    margin: 15px 20px;
+
+    h3 {
+        font-size: 25px;
+        font-family: 'Love Ya Like A Sister', cursive;
+        letter-spacing: 2px;
+        color: #225b77;
+
+    }
+}
+
+.image-secondary {
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 8px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+    transform: scale(1);
+
+    &:hover {
+        transform: scale(1.1);
+
+    }
+
+}
+
+.img-menuPet {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+}
+
+
+
+
+
+
+.info-container {
+    padding: 15px 25px;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        font-size: 42px;
+        color: #E05D5D;
+        font-family: 'Raleway', sans-serif;
+        text-align: center;
+    }
+
+}
+
+
+.petMenu-name {
+    font-size: 50px;
+    color: #E05D5D;
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+
+}
+
+.data-container {
+    margin: 10px 0px;
+}
+
+
+.data {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0px;
+
+    h3 {
+        text-decoration: underline;
+        font-size: 23px;
+        font-family: 'Love Ya Like A Sister', cursive;
+        letter-spacing: 2px;
+        color: #225b77;
+    }
+
+    p {
+        font-size: 20px;
+        letter-spacing: 1px;
+        font-family: 'Raleway', sans-serif;
+        color: #507585;
+    }
+}
+
+.data-icon {
+    font-size: 25px;
+    cursor: pointer;
+    color: #189d0e;
+    transition: 0.3s, transform 0.3s;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
+.menu-description {
+    padding-right: 15px;
+    width: 550px;
+
+    h3 {
+        text-align: center;
+        margin-bottom: 10px;
+        color: #E05D5D;
+        font-size: 23px;
+        letter-spacing: 2px;
+        font-family: 'Love Ya Like A Sister', cursive;
+
+    }
+
+    p {
+        font-size: 18px;
+        font-family: 'Raleway', sans-serif;
+        color: rgb(94, 87, 87);
+        line-height: 23px;
+    }
+}
+
+.menu-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    button {
+        margin: 30px;
+        font-size: 15px;
+        text-transform: uppercase;
+        padding: 8px 30px;
+        border-radius: 25px;
+        font-family: 'Raleway', sans-serif;
+        letter-spacing: 1px;
+        background-color: #225b77;
+        border: none;
+        color: #FFF8E5;
+        transition-duration: 0.5s;
+        cursor: pointer;
+
+
+        &:hover {
+            background-color: #2a7da7;
+
+        }
+    }
+}

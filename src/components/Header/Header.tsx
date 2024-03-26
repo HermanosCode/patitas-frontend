@@ -1,5 +1,5 @@
 
-import {   useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './Style/Header.scss'
 import UserMenu from '../UserMenu/UserMenu';
 import { Link } from 'react-router-dom';
@@ -14,17 +14,17 @@ const Header = () => {
     setIsOpen(!isOpen);
   };
 
-  
+
   useEffect(() => {
     let handler = (e: any) => {
-      if( !menuRef.current?.contains(e.target)){
+      if (!menuRef.current?.contains(e.target)) {
         setIsOpen(false)
       }
     };
-    document.addEventListener("mousedown",handler)
+    document.addEventListener("mousedown", handler)
 
-    return() => {
-      document.removeEventListener("mousedown",handler)
+    return () => {
+      document.removeEventListener("mousedown", handler)
     }
   });
 
@@ -36,12 +36,12 @@ const Header = () => {
       </div>
 
       {isOpen && (
-          <UserMenu />
+        <UserMenu />
       )}
-      
+
       <nav className="nav-container">
         <Link to="/adoptar-patita">Adoptar Patita</Link>
-        <a href="">Patitas Perdidas</a>
+        <Link to="/patitas-perdidas">Patitas Perdidas</Link>
         <div className="logo-header">
           <Link to="/home-page" className="logo-href" >
             <img src="src/images/logoCircular.png" alt="logo-patita" />
