@@ -12,6 +12,15 @@ const MenuPet = ({ onClose,pet}: MenuPetProps) => {
     };
 
 
+    const handleWhatsappClick = () =>{
+        const phoneNumber = pet.contact_number
+        const message = `Hola 👋. Vi tu publicacion en Patitas sin Hogar y estoy interesado en adoptar a ${pet.pet_name} ${pet.pet_type === "Gato" ? "🐱" : "🐶"}`
+
+        const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+
+        window.open(whatsappUrl, '_blank');
+    }
+
     return (
         <div className="overlay-pet">
             <div className="menu-pet">
@@ -65,8 +74,7 @@ const MenuPet = ({ onClose,pet}: MenuPetProps) => {
                         </div>
                         <div className="data">
                             <h3>Contacto</h3>
-                            <p>{pet.contact_number}</p>
-                            <FaWhatsapp className="data-icon" />
+                            <FaWhatsapp onClick={handleWhatsappClick} className="data-icon" />
                         </div>
                     </div>
                     <div className='menu-description'>

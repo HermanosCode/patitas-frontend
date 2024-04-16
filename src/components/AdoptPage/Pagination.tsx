@@ -18,7 +18,7 @@ export const Pagination = ({ handlePageClick, totalPage }: { handlePageClick: (d
       onPageChange={(data) => handlePageClick(data)} 
       marginPagesDisplayed={2}
       pageRangeDisplayed={2}
-      pageCount={10}
+      pageCount={totalPage}
       previousLabel={
         <BsChevronLeft />
       }

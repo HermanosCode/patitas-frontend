@@ -1,0 +1,104 @@
+.myPetsPublish-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 100px;
+
+
+.myPets-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+   width: 65%;
+}
+
+.myPets-title{
+    font-size: 45px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: #225b77;
+}
+
+
+.myPets-text{
+     font-size: 20px;
+     color: #56647a;  
+     margin-top: 8px;
+     letter-spacing: 1px;
+     font-family: 'Raleway', sans-serif;
+}
+
+
+
+.list-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 63px;
+    margin-bottom: 35px;
+    gap: 25px;
+}
+
+
+.list-text-container{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.icon-info{
+    width: auto;
+    height: 30px;
+    color: #f3b962;
+}
+
+.list-text{
+    font-size: 18px;
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: #225b77;
+    letter-spacing: 1px;
+    width: 100%;
+}
+
+.toggle-container {
+    margin-top: 70px;
+    margin-bottom: 40px;
+    background-color: #2a7da7;
+    border-radius: 15px;
+    overflow: hidden; /* Para ocultar el desbordamiento durante la animación */
+}
+
+.container-btn {
+    display: flex;
+    border-radius: 10px;
+    transition: transform 0.5s ease; /* Animación de deslizamiento */
+}
+
+.toggle-btn {
+    border: none;
+    background-color: transparent;
+    color: #FFF8E5;
+    padding: 13px 50px;
+    border-radius: 15px;
+    font-size: 18px;
+    font-family: 'Barlow', sans-serif;
+    text-align: center;
+    cursor: pointer;
+}
+
+.active {
+    background-color: #384861;
+}
+
+}
+
+.myPetsPublish-pets{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 100px;
+    margin-top: 25px;
+}

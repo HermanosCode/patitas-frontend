@@ -43,16 +43,13 @@ const Header = () => {
         <Link to="/adoptar-patita">Adoptar Patita</Link>
 
          <Link to="/publicar-patita">Publicar patita</Link>
-        
-
-       <Link to="/patitas-perdidas">Patitas Perdidas</Link>
 
         <div className="logo-header">
           <Link to="/home-page" className="logo-href" >
             <img src="src/images/logoCircular.png" alt="logo-patita" />
           </Link>
         </div>
-        <a href="">Patitas Perdidas</a>
+        <Link to="/patitas-perdidas">Patitas Perdidas</Link>
         <a href="">A ver</a>
       </nav>
     </header>

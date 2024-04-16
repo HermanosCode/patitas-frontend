@@ -15,7 +15,7 @@ const Footer = () => {
                 <div className='company-text'>
                     <img src="src/images/logoCompaniaF.png" alt="logo-empresa" />
                     <p>Diseño y programacion</p>
-                    <a href="https://www.linkedin.com/company/hermanoscode/about/">
+                    <a target="_blank" href="https://www.linkedin.com/company/hermanoscode/about/">
                         <button>CONTACTO</button>
                     </a>
                 </div>

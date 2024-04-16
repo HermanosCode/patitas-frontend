@@ -173,11 +173,9 @@ const AdoptPageContent = () => {
     useEffect(() => {
         async function obtenerMascotas() {
           try {
-            const apiUrl = `${import.meta.env.VITE_BASE_URL}/getPets`;
+            const apiUrl = `${import.meta.env.VITE_BASE_URL}/pet/getPets`;
             const response = await axios.get(`${apiUrl}?page=${currentPage}`);
             
-            // Extraer los datos de la respuesta
-
             const { mascotas, totalPaginas } = response.data;
             setPets(mascotas);
             setTotalPage(totalPaginas)
@@ -248,7 +246,6 @@ return (
                             styles={customStyles}
                             maxMenuHeight={130}
                             options={optionsProvincias}
-                            
                             required
                             onChange={handlePronvincia}
                             placeholder="Seleccionar provincia..."
@@ -268,8 +265,8 @@ return (
                 </div>
             </div>
             <div className='pet-container'>
-            {pets.map((pet, index) => (
-                <PetCard key={index} {...pet} />
+            {pets.map((pet) => (
+                <PetCard key={pet.pet_id} pet={pet} myPets={false} />
              ))}
             </div>
             <Pagination handlePageClick={handlePageClick} totalPage={totalPage}/>
