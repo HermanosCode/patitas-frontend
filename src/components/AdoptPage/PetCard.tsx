@@ -16,10 +16,10 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { MdPets } from "react-icons/md";
 
 
-const PetCard = ({ pet, myPets, myPetsAdopt }: PetCardProps) => {
+const PetCard = ({ pet, myPets, myPetsAdopt, isFavorite }: PetCardProps) => {
     const [isOpen, setIsOpen] = useState(false)
     const [isEdit, setIsEdit] = useState(false)
-    const [isHeartClick, setIsHeartClick] = useState(false);
+    const [isHeartClick, setIsHeartClick] = useState(isFavorite ? true : false);
     const [isHeartEmpty, setIsHeartEmpty] = useState(false);
     const [isHeartComplete, setIsHeartComplete] = useState(false);
     const [isDelete, setIsDelete] = useState(false)
@@ -30,9 +30,7 @@ const PetCard = ({ pet, myPets, myPetsAdopt }: PetCardProps) => {
     const [showPopUp, setShowPopUp] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState("")
 
-    const handleHeartClick = () => {
-        setIsHeartClick(!isHeartClick);
-    };
+
 
 
     const handleShowPreview = () => {
@@ -129,6 +127,45 @@ const PetCard = ({ pet, myPets, myPetsAdopt }: PetCardProps) => {
     }
 
 
+    const handleHeartMark = async () => {
+        try {
+            const apiUrl = `${import.meta.env.VITE_BASE_URL}/user/addFavorite`
+
+            const response = await axios.put(
+                apiUrl,
+                {
+                    pet_id: pet.pet_id
+                },
+                {
+                    withCredentials: true
+                }
+            );
+            setIsHeartClick(!isHeartClick);
+        }
+        catch (e) {
+        }
+    }
+
+    const handleHeartNotMark = async () => {
+        try {
+            const apiUrl = `${import.meta.env.VITE_BASE_URL}/user/deleteFavorite`
+
+            const response = await axios.put(
+                apiUrl,
+                {
+                    pet_id: pet.pet_id
+                },
+                {
+                    withCredentials: true
+                }
+            );
+            setIsHeartClick(!isHeartClick);
+        }
+        catch (e) {
+
+        }
+    }
+
     return (
 
         <div className='pet-card'>
@@ -185,17 +222,22 @@ const PetCard = ({ pet, myPets, myPetsAdopt }: PetCardProps) => {
                                     <TbCat className="icon" />
                                 </div>
                                 <div className='icons-right'>
-                                    {!isHeartClick ? (
-                                        isHeartEmpty ? (
-                                            <FaHeart onMouseLeave={handleHidePreview} onClick={handleHeartClick} className="icon-hearth" />
+
+                                    {
+                                        !isHeartClick ? (
+                                            isHeartEmpty ? (
+                                                <FaHeart onMouseLeave={handleHidePreview} onClick={handleHeartMark} className="icon-hearth" />
+                                            ) : (
+                                                <FaRegHeart onMouseEnter={handleShowPreview} className="icon-hearth" />
+                                            )
                                         ) : (
-                                            <FaRegHeart onMouseEnter={handleShowPreview} onClick={handleHeartClick} className="icon-hearth" />
+                                            isHeartComplete ? (
+                                                <FaHeartCrack onMouseLeave={handleHideBrokenHeart} onClick={handleHeartNotMark} className="icon-hearth" />
+                                            ) : (
+                                                <FaHeart onMouseEnter={handleShowBrokenHeart} className="icon-hearth" />
+                                            )
                                         )
-                                    ) : isHeartComplete ? (
-                                        <FaHeartCrack onMouseLeave={handleHideBrokenHeart} onClick={handleHeartClick} className="icon-hearth" />
-                                    ) : (
-                                        <FaHeart onMouseEnter={handleShowBrokenHeart} onClick={handleHeartClick} className="icon-hearth" />
-                                    )}
+                                    }
                                 </div>
                             </div>
                             {isOpen && (

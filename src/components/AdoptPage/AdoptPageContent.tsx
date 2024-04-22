@@ -19,6 +19,7 @@ const AdoptPageContent = () => {
     const [location, setLocation] = useState("")
     const [optionsLocalidad, setOptionsLocalidad] = useState([])
     const [pets, setPets] = useState<Pet[]>([]);
+    const [favoritesPets,setFavoritesPets] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage,setTotalPage] = useState(0)
     
@@ -186,7 +187,21 @@ const AdoptPageContent = () => {
         obtenerMascotas();
       }, [currentPage]);
     
-    
+
+      useEffect(() => {
+        async function getFavoritesPets() {
+            try {
+                const apiUrl = `${import.meta.env.VITE_BASE_URL}/user/getFavoritesPets`;
+                const response = await axios.get(apiUrl, { withCredentials: true });
+                const favoritesPetsData = response.data.favoritesPets;
+                setFavoritesPets(favoritesPetsData);
+            } catch (error) {
+                console.error("Error al obtener mascotas favoritas", error);
+            }
+        }
+        getFavoritesPets();
+    }, []);
+   
 
 return (
         <div className='container-adoptPage' >
@@ -266,7 +281,7 @@ return (
             </div>
             <div className='pet-container'>
             {pets.map((pet) => (
-                <PetCard key={pet.pet_id} pet={pet} myPets={false} />
+                <PetCard key={pet.pet_id} pet={pet} myPets={false} myPetsAdopt={false} isFavorite={favoritesPets.some(favoritePetId => favoritePetId === pet.pet_id)} />
              ))}
             </div>
             <Pagination handlePageClick={handlePageClick} totalPage={totalPage}/>
