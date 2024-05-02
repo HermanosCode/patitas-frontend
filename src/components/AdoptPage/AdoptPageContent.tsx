@@ -13,36 +13,61 @@ import { Pet } from '../../types/Pet';
 
 
 const AdoptPageContent = () => {
-    const [petAge, setPetAge] = useState("")
-    const [province, setProvince] = useState("")
+    const [petAge, setPetAge] = useState<{ value: string } | null>(null);
+    const [province, setProvince] = useState<{ value: string } | null>(null);
     const [optionsProvincias, setOptionsProvincia] = useState([])
-    const [location, setLocation] = useState("")
+    const [location, setLocation] = useState<{ value: string } | null>(null);
     const [optionsLocalidad, setOptionsLocalidad] = useState([])
     const [pets, setPets] = useState<Pet[]>([]);
     const [favoritesPets,setFavoritesPets] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage,setTotalPage] = useState(0)
     
-
+    const [petGender,setPetGender] = useState("")
+    const [petType,setPetType] = useState("")
     
     const handlePageClick = (data : any) => {
         setCurrentPage(data.selected + 1);
       };
 
     const handlePetAge = (option: any) => {
-        setPetAge(option.value);
+        setPetAge(option);
     }
 
-
-    //Handle edad mascota change
-    const handlePronvincia = (option: any) => {
-        setProvince(option.value);
-        obtenerLocalidad(option.value)
+    const handlePetGender = (gender : string) => {
+       if(gender == petGender){
+        setPetGender("")
+       } else if (gender !== petGender){
+        setPetGender(gender)
+       }
     }
 
+    const handlePetType = (type : string) => {
+        if(type == petType){
+            setPetType("")
+           } else if (type !== petType){
+            setPetType(type)
+           }
+    }
+      
+
+   
+
+    const handleProvincia = (option: any) => {
+        if (option !== null) {
+            setProvince(option);
+            setLocation(null);
+            obtenerLocalidad(option.value);
+        } else {
+            setProvince(null);
+            setLocation(null);
+            setOptionsLocalidad([]); 
+        }
+    }
+    
     //Handle edad mascota change
     const handleLocalidad = (option: any) => {
-        setLocation(option.value);
+        setLocation(option);
     }
 
 
@@ -72,17 +97,15 @@ const AdoptPageContent = () => {
     }, []);
 
 
-    const obtenerLocalidad = (provincia: string) => {
-        
+    const obtenerLocalidad = (provincia: string) => {        
         const cantidadLocalidades = 900;
-
         
         axios.get(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincia}&max=${cantidadLocalidades}`)
             .then((res) => {
                 if (res.status === 200) {
 
                     const opcionesMunicipio = res.data.municipios.map((municipio: any) => ({
-                        value: municipio.id,
+                        value: municipio.nombre,
                         label: municipio.nombre
                     }));
                     setOptionsLocalidad(opcionesMunicipio);
@@ -170,12 +193,26 @@ const AdoptPageContent = () => {
             },
         }),
     };
+    
+    
+    
 
     useEffect(() => {
         async function obtenerMascotas() {
+           
           try {
             const apiUrl = `${import.meta.env.VITE_BASE_URL}/pet/getPets`;
-            const response = await axios.get(`${apiUrl}?page=${currentPage}`);
+            const response = await axios.get(apiUrl, {
+                params: {
+                    page: currentPage,
+                    pet_gender : petGender,
+                    pet_type : petType,
+                    pet_age : petAge?.value ,
+                    province: province?.value ,
+                    location : location?.value
+                }
+            });
+            
             
             const { mascotas, totalPaginas } = response.data;
             setPets(mascotas);
@@ -185,7 +222,7 @@ const AdoptPageContent = () => {
           }
         }
         obtenerMascotas();
-      }, [currentPage]);
+      }, [currentPage,petGender,petType,petAge,province,location]);
     
 
       useEffect(() => {
@@ -201,8 +238,7 @@ const AdoptPageContent = () => {
         }
         getFavoritesPets();
     }, []);
-   
-
+ 
 return (
         <div className='container-adoptPage' >
             <div className='background'></div>
@@ -227,19 +263,19 @@ return (
             <div className='search-container'>
                 <div className='search-bar'>
                     <div className='container-buttons'>
-                        <div className="button-search" >
+                        <div className={`button-search ${petType === "Perro" ? 'selected' : ''}`}  onClick={() => handlePetType('Perro')}>
                             <LuDog className="icon-search" />
                             <p>Perro</p>
                         </div>
-                        <div className='button-search'>
+                        <div className={`button-search ${petType === "Gato" ? 'selected' : ''}`} onClick={() => handlePetType('Gato')}>
                             <TbCat className="icon-search" />
                             <p>Gato</p>
                         </div>
-                        <div className='button-search'>
+                        <div className={`button-search ${petGender === "Macho" ? 'selected' : ''}`} onClick={() => handlePetGender('Macho')}> 
                             <TbGenderDemiboy className="icon-search" />
                             <p>Macho</p>
                         </div>
-                        <div className='button-search'>
+                        <div className={`button-search ${petGender === "Hembra" ? 'selected' : ''}`} onClick={() => handlePetGender('Hembra')}>
                             <IoMdFemale className="icon-search" />
                             <p>Hembra</p>
                         </div>
@@ -249,12 +285,13 @@ return (
                             id="edad-mascota"
                             styles={customStyles}
                             maxMenuHeight={130}
-
                             options={edadMascota}
                             required
                             onChange={handlePetAge}
                             placeholder="Seleccionar edad..."
                             isSearchable
+                            isClearable
+                            
                         />
                         <Select
                             id="provincia"
@@ -262,9 +299,13 @@ return (
                             maxMenuHeight={130}
                             options={optionsProvincias}
                             required
-                            onChange={handlePronvincia}
+                            value={province}
+                            onChange={handleProvincia}
                             placeholder="Seleccionar provincia..."
                             isSearchable
+                            isClearable
+                            
+                            
                         />
                         <Select
                             id="localidad"
@@ -272,9 +313,13 @@ return (
                             maxMenuHeight={130}
                             options={optionsLocalidad}
                             required
+                            value={location}
                             onChange={handleLocalidad}
                             placeholder="Seleccionar localidad..."
                             isSearchable
+                            isClearable
+                            
+                            
                         />
                     </div>
                 </div>

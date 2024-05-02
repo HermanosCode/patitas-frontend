@@ -256,44 +256,44 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
 
     //handle para actualizar mascota
     const handleUpdate = async () => {
-    
-            const apiUrl = `${import.meta.env.VITE_BASE_URL}/pet/updatePet`;
 
-            try {
-                const formData = new FormData();
-                if (image) {
-                    formData.append('pet_photo', (new File([image], image.name)));
-                }
-                formData.append('pet_id', pet?.pet_id || '')
-                formData.append('url_image', urlImage)
-                formData.append('pet_name', petName);
-                formData.append('pet_race', petRace);
-                formData.append('pet_age', petAge);
-                formData.append('contact_number', contactNumber);
-                formData.append('pet_gender', genderPet);
-                formData.append('pet_type', typePet);
-                formData.append('pet_disability', disabilityPet ? '1' : '0');
-                formData.append('veterinary_care', veterinaryCare ? '1' : '0');
-                formData.append('pet_description', petInfo);
-                formData.append('pet_province', province);
-                formData.append('pet_location', location);
+        const apiUrl = `${import.meta.env.VITE_BASE_URL}/pet/updatePet`;
 
-
-                const response = await axios.put(apiUrl, formData, {
-                    withCredentials: true,
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-                if (response.status === 200) {
-                    handlePopUp(response.data.message);
-
-
-                }
-
-            } catch (error: any) {
-                handlePopUp(error.response.data.message);
+        try {
+            const formData = new FormData();
+            if (image) {
+                formData.append('pet_photo', (new File([image], image.name)));
             }
+            formData.append('pet_id', pet?.pet_id || '')
+            formData.append('url_image', urlImage)
+            formData.append('pet_name', petName);
+            formData.append('pet_race', petRace);
+            formData.append('pet_age', petAge);
+            formData.append('contact_number', contactNumber);
+            formData.append('pet_gender', genderPet);
+            formData.append('pet_type', typePet);
+            formData.append('pet_disability', disabilityPet ? '1' : '0');
+            formData.append('veterinary_care', veterinaryCare ? '1' : '0');
+            formData.append('pet_description', petInfo);
+            formData.append('pet_province', province);
+            formData.append('pet_location', location);
+
+
+            const response = await axios.put(apiUrl, formData, {
+                withCredentials: true,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            if (response.status === 200) {
+                handlePopUp(response.data.message);
+
+
+            }
+
+        } catch (error: any) {
+            handlePopUp(error.response.data.message);
+        }
     };
 
     const handleUpdatePet = () => {
@@ -406,7 +406,7 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
 
     return (
 
-        <div className='form-container'>
+        <div className={`${edit ? "form-container-edit" : "form-container"}`}>
             {showPopUp && (
                 edit ? (
                     <PopUp message={popUpMessage} onClose={handlePopupClose} onResponse={handleUpdate} />
@@ -464,7 +464,6 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
                             styles={customStyles}
                             maxMenuHeight={130}
                             options={edadMascota}
-                            value={{ value: petAge, label: petAge }}
                             required
                             onChange={handlePetAge}
                             placeholder="Seleccionar edad ..."
@@ -488,7 +487,6 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
                             id="provincia"
                             styles={customStyles}
                             maxMenuHeight={130}
-                            value={{ value: province, label: province }}
                             options={optionsProvincias}
                             required
                             onChange={handlePronvincia}
@@ -513,7 +511,6 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
                             styles={customStyles}
                             maxMenuHeight={130}
                             options={optionsLocalidad}
-                            value={{ value: location, label: location }}
                             required
                             onChange={handleLocalidad}
                             placeholder="Seleccionar localidad ..."

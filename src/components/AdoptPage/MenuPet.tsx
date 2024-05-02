@@ -79,7 +79,7 @@ const MenuPet = ({ onClose,pet}: MenuPetProps) => {
                     </div>
                     <div className='menu-description'>
                         <h3>Descripcion</h3>
-                        <p>{pet.pet_description}</p>
+                        <textarea value={pet.pet_description} readOnly />
                     </div>
                     <div className='menu-button'>
                         <button onClick={onClose}>Volver</button>

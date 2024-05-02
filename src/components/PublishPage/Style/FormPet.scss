@@ -5,12 +5,20 @@
     flex-direction: column;
     margin-top: 70px;
     margin-bottom: 80px;
-    background-color:#FFF8E5 ;
     border-radius: 20px;
     box-shadow: 1px 1px 9px 3px rgba(228, 166, 72, 0.9);
 }
 
-
+.form-container-edit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 70px;
+    margin-bottom: 80px;
+    border-radius: 20px;
+    background-color: #FFF8E5;
+}
 
 
 .form-publishPage{
@@ -106,7 +114,8 @@
         color: #225b77;
         font-size: 17px;
         margin-top: 10px;
-        padding: 10px 10px;
+        padding: 10px 0px;
+        padding-right: 10px;
         letter-spacing: 1px;
         font-family: 'Barlow', sans-serif;   
         

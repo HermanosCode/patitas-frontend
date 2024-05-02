@@ -16,7 +16,7 @@
 
     h1 {
         font-size: 45px;
-        letter-spacing: 1px;
+        letter-spacing: 2px;
         margin-bottom: 20px;
         font-family: 'Love Ya Like A Sister', cursive;
         color: #225b77;
@@ -30,4 +30,25 @@
         font-family: 'Raleway', sans-serif;
         margin: 35px 0px;
     }
+}
+
+
+.list-text-container{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    p{
+        font-size: 18px;
+    font-family: 'Love Ya Like A Sister', cursive;
+    color: #225b77;
+    letter-spacing: 1px;
+    width: 100%;
+    }
+}
+
+.icon-info{
+    width: auto;
+    height: 30px;
+    color: #f3b962;
 }

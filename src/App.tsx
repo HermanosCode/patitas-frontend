@@ -5,6 +5,7 @@ import HomePage from './components/HomePage/HomePage';
 import AdoptPage from './components/AdoptPage/AdoptPage';
 import MyPetsPublishPage from './components/MyPetsPublish/MyPetsPublishPage';
 import MyFavoritesPetsPage from './components/MyFavoritesPets/MyFavoritesPetsPage';
+import PersonalDataPage from './components/PersonalData/PersonalDataPage';
 
 
 
@@ -23,7 +24,7 @@ function App() {
     <Routes>
       <Route path='/home-page' element={<HomePage/>} />
       <Route path='/' element={<LoginSingUp/>} />
-      <Route path='/datos-personales' element={ <h1>Personal Data</h1> } />
+      <Route path='/datos-personales' element={ <PersonalDataPage/> } />
       <Route path='/patitas-publicadas' element={<MyPetsPublishPage/>} />
       <Route path='/patitas-favoritas' element={<MyFavoritesPetsPage/>} />
       <Route path='/adoptar-patita' element={<AdoptPage/>} /> 

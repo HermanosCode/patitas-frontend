@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import PetCard from "../AdoptPage/PetCard";
 import { Pet } from "../../types/Pet";
 import './Styles/MyFavoritesPets.scss'
+import { MdOutlinePets } from "react-icons/md";
 
 
 export default function MyFavoritesPetsContent() {
@@ -35,6 +36,13 @@ export default function MyFavoritesPetsContent() {
                     "¡Bienvenido a la sección 'Patitas Favoritas'! Aquí es donde podrás encontrar a todas las mascotas a las que has agregado como favoritas, brindándote la oportunidad de hacer un seguimiento detallado de aquellas
                     mascotas que te han cautivado el corazón y a quienes estás considerando para la adopción.
                 </p>
+                    <div className='list-text-container'>
+                        <MdOutlinePets className='icon-info' />
+                        <p className='list-text'>Si la mascota en la que tenias como favorito desaparece, significa que el usuario que la publico
+                        borro la publicacion o indico que la mascota ya fue adoptada
+                        </p>
+                    </div>
+                
             </div>
             <div className='pet-container'>
                 {favoritesPets.map((pet) => (
