@@ -13,35 +13,61 @@ import { Pet } from '../../types/Pet';
 
 
 const AdoptPageContent = () => {
-    const [petAge, setPetAge] = useState("")
-    const [province, setProvince] = useState("")
+    const [petAge, setPetAge] = useState<{ value: string } | null>(null);
+    const [province, setProvince] = useState<{ value: string } | null>(null);
     const [optionsProvincias, setOptionsProvincia] = useState([])
-    const [location, setLocation] = useState("")
+    const [location, setLocation] = useState<{ value: string } | null>(null);
     const [optionsLocalidad, setOptionsLocalidad] = useState([])
     const [pets, setPets] = useState<Pet[]>([]);
+    const [favoritesPets,setFavoritesPets] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage,setTotalPage] = useState(0)
     
-
+    const [petGender,setPetGender] = useState("")
+    const [petType,setPetType] = useState("")
     
     const handlePageClick = (data : any) => {
         setCurrentPage(data.selected + 1);
       };
 
     const handlePetAge = (option: any) => {
-        setPetAge(option.value);
+        setPetAge(option);
     }
 
-
-    //Handle edad mascota change
-    const handlePronvincia = (option: any) => {
-        setProvince(option.value);
-        obtenerLocalidad(option.value)
+    const handlePetGender = (gender : string) => {
+       if(gender == petGender){
+        setPetGender("")
+       } else if (gender !== petGender){
+        setPetGender(gender)
+       }
     }
 
+    const handlePetType = (type : string) => {
+        if(type == petType){
+            setPetType("")
+           } else if (type !== petType){
+            setPetType(type)
+           }
+    }
+      
+
+   
+
+    const handleProvincia = (option: any) => {
+        if (option !== null) {
+            setProvince(option);
+            setLocation(null);
+            obtenerLocalidad(option.value);
+        } else {
+            setProvince(null);
+            setLocation(null);
+            setOptionsLocalidad([]); 
+        }
+    }
+    
     //Handle edad mascota change
     const handleLocalidad = (option: any) => {
-        setLocation(option.value);
+        setLocation(option);
     }
 
 
@@ -71,17 +97,15 @@ const AdoptPageContent = () => {
     }, []);
 
 
-    const obtenerLocalidad = (provincia: string) => {
-        
+    const obtenerLocalidad = (provincia: string) => {        
         const cantidadLocalidades = 900;
-
         
         axios.get(`https://apis.datos.gob.ar/georef/api/municipios?provincia=${provincia}&max=${cantidadLocalidades}`)
             .then((res) => {
                 if (res.status === 200) {
 
                     const opcionesMunicipio = res.data.municipios.map((municipio: any) => ({
-                        value: municipio.id,
+                        value: municipio.nombre,
                         label: municipio.nombre
                     }));
                     setOptionsLocalidad(opcionesMunicipio);
@@ -100,12 +124,13 @@ const AdoptPageContent = () => {
     const customStyles = {
         control: (styles: any) => ({
             ...styles,
-            borderRadius: "15px",
+            borderRadius: "5px",
             border: "1px solid #E05D5D",
             backgroundColor: "#FFF8E5",
+            marginTop: "11px",
             fontSize: "17px",
             outline: "none",
-            width: "255px",
+            width: "260px",
             height: "41px",
             fontFamily: 'Barlow, sans-serif',
             letterSpacing: "0.5px",
@@ -113,7 +138,7 @@ const AdoptPageContent = () => {
             boxShadow: "none",
             cursor: "pointer",
             color: "#225b77",
-
+            fontWeight: "200",
 
             '&:hover': {
                 borderColor: "#E05D5D",
@@ -121,12 +146,12 @@ const AdoptPageContent = () => {
         }),
         input: (style: any) => ({
             ...style,
-
             color: "#225b77"
         }),
         singleValue: (styles: any) => ({
             ...styles,
-            color: "#225b77"
+            color: "#225b77",
+            width: "100%",
         }),
         option: (styles: any, { isSelected }: { isSelected: boolean }) => ({
             ...styles,
@@ -137,7 +162,6 @@ const AdoptPageContent = () => {
             padding: "7px 0px",
             paddingLeft: "20px",
             cursor: "pointer",
-            fontWeight: "600",
 
             '&:hover': {
                 backgroundColor: "#fdd79d"
@@ -145,8 +169,7 @@ const AdoptPageContent = () => {
         }),
         menuList: (style: any) => ({
             ...style,
-            padding: '0',
-            color: "#225b77"
+            padding: '0'
         }),
         menu: (styles: any) => ({
             ...styles,
@@ -169,15 +192,27 @@ const AdoptPageContent = () => {
             },
         }),
     };
+    
+    
+    
 
     useEffect(() => {
         async function obtenerMascotas() {
+           
           try {
-            const apiUrl = `${import.meta.env.VITE_BASE_URL}/getPets`;
-            const response = await axios.get(`${apiUrl}?page=${currentPage}`);
+            const apiUrl = `${import.meta.env.VITE_BASE_URL}/pet/getPets`;
+            const response = await axios.get(apiUrl, {
+                params: {
+                    page: currentPage,
+                    pet_gender : petGender,
+                    pet_type : petType,
+                    pet_age : petAge?.value ,
+                    province: province?.value ,
+                    location : location?.value
+                }
+            });
             
-            // Extraer los datos de la respuesta
-
+            
             const { mascotas, totalPaginas } = response.data;
             setPets(mascotas);
             setTotalPage(totalPaginas)
@@ -186,10 +221,23 @@ const AdoptPageContent = () => {
           }
         }
         obtenerMascotas();
-      }, [currentPage]);
-    
+      }, [currentPage,petGender,petType,petAge,province,location]);
     
 
+      useEffect(() => {
+        async function getFavoritesPets() {
+            try {
+                const apiUrl = `${import.meta.env.VITE_BASE_URL}/user/getFavoritesPets`;
+                const response = await axios.get(apiUrl, { withCredentials: true });
+                const favoritesPetsData = response.data.favoritesPets;
+                setFavoritesPets(favoritesPetsData);
+            } catch (error) {
+                console.error("Error al obtener mascotas favoritas", error);
+            }
+        }
+        getFavoritesPets();
+    }, []);
+ 
 return (
         <div className='container-adoptPage' >
             <div className='background'></div>
@@ -214,19 +262,19 @@ return (
             <div className='search-container'>
                 <div className='search-bar'>
                     <div className='container-buttons'>
-                        <div className="button-search" >
+                        <div className={`button-search ${petType === "Perro" ? 'selected' : ''}`}  onClick={() => handlePetType('Perro')}>
                             <LuDog className="icon-search" />
                             <p>Perro</p>
                         </div>
-                        <div className='button-search'>
+                        <div className={`button-search ${petType === "Gato" ? 'selected' : ''}`} onClick={() => handlePetType('Gato')}>
                             <TbCat className="icon-search" />
                             <p>Gato</p>
                         </div>
-                        <div className='button-search'>
+                        <div className={`button-search ${petGender === "Macho" ? 'selected' : ''}`} onClick={() => handlePetGender('Macho')}> 
                             <TbGenderDemiboy className="icon-search" />
                             <p>Macho</p>
                         </div>
-                        <div className='button-search'>
+                        <div className={`button-search ${petGender === "Hembra" ? 'selected' : ''}`} onClick={() => handlePetGender('Hembra')}>
                             <IoMdFemale className="icon-search" />
                             <p>Hembra</p>
                         </div>
@@ -236,23 +284,27 @@ return (
                             id="edad-mascota"
                             styles={customStyles}
                             maxMenuHeight={130}
-
                             options={edadMascota}
                             required
                             onChange={handlePetAge}
                             placeholder="Seleccionar edad..."
                             isSearchable
+                            isClearable
+                            
                         />
                         <Select
                             id="provincia"
                             styles={customStyles}
                             maxMenuHeight={130}
                             options={optionsProvincias}
-                            
                             required
-                            onChange={handlePronvincia}
+                            value={province}
+                            onChange={handleProvincia}
                             placeholder="Seleccionar provincia..."
                             isSearchable
+                            isClearable
+                            
+                            
                         />
                         <Select
                             id="localidad"
@@ -260,16 +312,18 @@ return (
                             maxMenuHeight={130}
                             options={optionsLocalidad}
                             required
+                            value={location}
                             onChange={handleLocalidad}
                             placeholder="Seleccionar localidad..."
                             isSearchable
+                            isClearable
                         />
                     </div>
                 </div>
             </div>
             <div className='pet-container'>
-            {pets.map((pet, index) => (
-                <PetCard key={index} {...pet} />
+            {pets.map((pet) => (
+                <PetCard key={pet.pet_id} pet={pet}  myPetsAdopt={false} isFavorite={favoritesPets.some(favoritePetId => favoritePetId === pet.pet_id)} />
              ))}
             </div>
             <Pagination handlePageClick={handlePageClick} totalPage={totalPage}/>

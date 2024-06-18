@@ -7,11 +7,15 @@ import { CiLogout } from "react-icons/ci";
 import './Style/UserMenu.scss';
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 
 
 const UserMenu = () => {
+    const [userName,setUserName] = useState("")
+    const [image,setImage] = useState("")
 
+  
   
   const handleLogout = async () => {
     try {
@@ -26,12 +30,31 @@ const UserMenu = () => {
     }
   };
 
+  useEffect(() => {
+    async function getUserData () {
+      const apiUrl = `${import.meta.env.VITE_BASE_URL}/user/getUserData`;
+
+            try {
+                const response = await axios.get(apiUrl, {
+                    withCredentials: true
+                })
+                const user = response.data.user[0]
+                setUserName(user.user_name)
+                setImage(user.user_photo)
+            } catch (e) {
+                console.error("Error al obtener datos ")
+            }
+        }
+        getUserData()
+    }, [])
+
+
     return (
         <div   className='user-content' >
           <div className="arrow"></div>
             <div className="user-data">
-              <img src="src/images/cv.jpg" alt="foto de usuario" />
-              <h2> Nombre Usuario</h2>
+              <img src={!image ? "src/images/user_anonimo.jpg" : image} alt="foto de usuario" />
+              <h2> {userName}</h2>
               <div className="line"></div>
                 <div className="user-set">
                   <Link to="/datos-personales" className="user-part">

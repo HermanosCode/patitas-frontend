@@ -14,5 +14,6 @@ export interface Pet {
     pet_province : string
     contact_number : string
     pet_id : string
+    pet_adopted : boolean
     
 }
