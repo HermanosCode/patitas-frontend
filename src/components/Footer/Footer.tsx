@@ -11,6 +11,7 @@ const Footer = () => {
                     <a href="/publicar-patita">PUBLICAR </a>
                     <a href="/adoptar-patita">ADOPTAR </a>
                     <a href="/datos-personales">CONTACTO</a>
+                    <a href="/patitas-perdidas">PERDIDAS</a>
                 </div>
                 <div className='company-text'>
                     <img src="src/images/logoCompaniaF.png" alt="logo-empresa" />
@@ -21,7 +22,7 @@ const Footer = () => {
                 </div>
             </footer>
             <div className='hermanosCode'>
-                <p>@ Hermanos Code</p>
+                <p>@ Hermanos Code 2024</p>
             </div>
         </>
     )

@@ -1,0 +1,179 @@
+.lostPet-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    flex-direction: column;
+}
+
+
+.lostPet-introduction {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 50px;
+    width: 60%;
+
+    h1 {
+        color: #225b77;
+        font-size: 50px;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+        font-family: 'Love Ya Like A Sister', cursive;
+    }
+
+    p {
+
+        padding: 10px 0px;
+        font-size: 17px;
+        font-family: 'Barlow', sans-serif;
+        letter-spacing: 1px;
+        font-weight: 600;
+        color: #384861;
+        line-height: 20px;
+    }
+}
+
+.lostPet-title {
+    margin: 20px 0px;
+    color: #225b77;
+    font-size: 35px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    font-family: 'Love Ya Like A Sister', cursive;
+}
+
+.formLostPet-container {
+    margin-top: 70px;
+    margin-bottom: 80px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 9px 3px rgba(228, 166, 72, 0.9);
+}
+
+
+.form-lostPet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    padding: 30px;
+    padding-bottom: 0px;
+}
+
+
+.lostPet-textContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+.grid-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+
+.gridContent-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+
+.button-lostPet {
+    display: flex;
+    justify-content: center;
+
+}
+
+.publish-lostPet {
+    color: #225b77;
+    font-size: 35px;
+    letter-spacing: 1px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-family: 'Love Ya Like A Sister', cursive;
+    text-align: center;
+}
+
+
+.imput-check {
+    color: #225b77;
+    
+
+    h4 {
+        margin-bottom: 15px;
+        font-weight: 500;
+        font-size: 19px;
+        font-family: 'Barlow', sans-serif;
+        font-weight: 600;
+
+        span {
+            border-bottom: 1px solid #E05D5D;
+        }
+    }
+
+    label {
+        font-size: 20px;
+        font-family: 'Barlow', sans-serif;
+        font-weight: 500;
+       
+        align-items: center;
+    }
+
+
+    input {
+        margin: 10px 0px;
+        margin-right: 10px;
+        accent-color: #2a7da7;
+        width: 17px;
+        height: 17px;
+        outline: none;
+        cursor: pointer;
+    }
+
+    label {
+        margin-right: 15px;
+    }
+}
+
+
+.toggle-container {
+    margin-top: 70px;
+    margin-bottom: 40px;
+    background-color: #2a7da7;
+    border-radius: 15px;
+    overflow: hidden; /* Para ocultar el desbordamiento durante la animación */
+}
+
+.container-btn {
+    display: flex;
+    border-radius: 10px;
+    transition: transform 0.5s ease; /* Animación de deslizamiento */
+}
+
+.toggle-btn {
+    border: none;
+    background-color: transparent;
+    color: #FFF8E5;
+    padding: 13px 50px;
+    border-radius: 15px;
+    font-size: 18px;
+    font-family: 'Barlow', sans-serif;
+    text-align: center;
+    cursor: pointer;
+}
+
+.active-lost {
+    background-color: #384861;
+}

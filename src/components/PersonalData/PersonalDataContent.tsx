@@ -1,125 +1,148 @@
 
+import axios from 'axios';
 import './Styles/PersonalData.scss'
-import React, { useState, useEffect } from "react";
-import Select from "react-select";
-import axios from "axios";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import PopUp from '../PopUp/PopUp';
 
 export default function PersonalDataContent() {
     const [image, setImage] = useState<File | null>(null);
-    const [optionsProvincias, setOptionsProvincia] = useState([]);
-    const [province, setProvince] = useState("");
+    const [urlImage, setUrlImage] = useState("")
+    const [userName, setUserName] = useState("")
+    const [email, setEmail] = useState("")
+    const [contactNumber, setContactNumber] = useState("")
+    const [edit, setEdit] = useState(false)
+
+
+    //Mostrar popUp, indicar mensaje y menu del select
+    const [showPopUp, setShowPopUp] = useState(false)
+    const [popUpMessage, setPopUpMessage] = useState("")
+
+
 
     const handleUploadImageClick = () => {
-        document.getElementById("image-load")?.click()
+        if (edit) {
+            document.getElementById("image-load")?.click()
+        }
     }
 
     const handleImageChance = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
             setImage(file);
+            setUrlImage(URL.createObjectURL(file));
+
+        }
+    }
+
+    const handleEdit = () => {
+        setEdit(!edit)
+    }
+
+
+    // Función para validar que solo se ingresen letras
+    const isValidInput = (inputValue: string): boolean => /^[a-zA-Z\s]*$/.test(inputValue);
+
+    //Handle change numero de contacto
+    const handleNumberContactChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setContactNumber(event.target.value)
+    }
+
+    const handleNombreChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const imputValue = event.target.value
+        if (isValidInput(imputValue)) {
+            setUserName(event.target.value)
+        }
+    }
+
+    const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value)
+    }
+
+    //Handle para actualizar el popUp
+    const handlePopUp = (message: string) => {
+        setPopUpMessage(message);
+        setShowPopUp(true);
+    }
+
+    //Handle para cambiar el estado del popUp
+    const handlePopupClose = () => {
+        setShowPopUp(false);
+    };
+
+
+    //Funcion para validar que el formulario este completo 
+    const validateForm = () => {
+        return (!contactNumber || !image);
+    }
+
+
+    const handleUpdateUser = async () => {
+        if (validateForm()) {
+            handlePopUp("Todos los campos son obligatorios.Por favor, completar la información.");
+        } else {
+            handlePopUp("Desea guardar los cambios?")
         }
     }
 
     useEffect(() => {
-        const obtenerProvincias = async () => {
+        const getUserData = async () => {
+            const apiUrl = `${import.meta.env.VITE_BASE_URL}/user/getUserData`;
+
             try {
-                const res = await axios.get("https://apis.datos.gob.ar/georef/api/provincias");
-                if (res.status === 200) {
-                    const provincias = res.data.provincias.map((provincia: any) => ({
-                        value: provincia.nombre,
-                        label: provincia.nombre
-                    }));
-                    setOptionsProvincia(provincias);
-                }
-            } catch (error) {
-                console.error("Error al obtener las provincias:", error);
+                const response = await axios.get(apiUrl, {
+                    withCredentials: true
+                })
+                const user = response.data.user[0]
+                setEmail(user.user_email)
+                setUserName(user.user_name)
+                setContactNumber(user.contact_number === null ? "" : user.contact_number)
+                setUrlImage(user.user_photo)
+            } catch (e) {
+                console.error("Error al obtener datos ")
             }
-        };
+        }
+        getUserData()
+    }, [])
 
-        obtenerProvincias();
-    }, []);
 
-    const handlePronvincia = (option: any) => {
-        setProvince(option.value);
+    const handleSubmit = async () => {
+        const apiUrl = `${import.meta.env.VITE_BASE_URL}/user/updateUserData`
+
+        if (image !== null) {
+            try {
+                const formData = new FormData();
+
+                formData.append('user_photo', (new File([image], image.name)));
+                formData.append('contact_number', contactNumber);
+                formData.append("user_name", userName)
+                formData.append("user_email", email)
+
+
+
+                const response = await axios.post(apiUrl, formData, {
+                    withCredentials: true,
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                if (response.status === 200) {
+                    handlePopUp(response.data.message);
+
+                }
+
+            } catch (error: any) {
+                handlePopUp(error.response.data.message);
+            }
+
+        }
     }
-
-
-    // Estilos para el componente Select 
-    const customStyles = {
-        control: (styles: any) => ({
-            ...styles,
-            borderRadius: "5px",
-            border: "1px solid #E05D5D",
-            backgroundColor: "#FFF8E5",
-            marginTop: "11px",
-            fontSize: "17px",
-            outline: "none",
-            width: "260px",
-            height: "41px",
-            fontFamily: 'Barlow, sans-serif',
-            letterSpacing: "0.5px",
-            padding: "0px 5px",
-            boxShadow: "none",
-            cursor: "pointer",
-            color: "#225b77",
-            fontWeight: "200",
-
-            '&:hover': {
-                borderColor: "#E05D5D",
-            },
-        }),
-        input: (style: any) => ({
-            ...style,
-            color: "#225b77"
-        }),
-        singleValue: (styles: any) => ({
-            ...styles,
-            color: "#225b77",
-            width: "100%",
-        }),
-        option: (styles: any, { isSelected }: { isSelected: boolean }) => ({
-            ...styles,
-            backgroundColor: isSelected ? '#FFF8E5' : null,
-            fontSize: "18px",
-            fontFamily: 'Barlow, sans-serif',
-            color: isSelected ? "#225b77" : null,
-            padding: "7px 0px",
-            paddingLeft: "20px",
-            cursor: "pointer",
-
-            '&:hover': {
-                backgroundColor: "#fdd79d"
-            },
-        }),
-        menuList: (style: any) => ({
-            ...style,
-            padding: '0'
-        }),
-        menu: (styles: any) => ({
-            ...styles,
-            backgroundColor: "#FFF8E5",
-            border: "1px solid #E05D5D",
-            borderRadius: 0,
-            className: 'react-select-menu',
-        }),
-        indicatorSeparator: (style: any) => ({
-            ...style,
-            backgroundColor: '#E05D5D',
-        }),
-        dropdownIndicator: (style: any, { isFocused }: { isFocused: boolean }) => ({
-            ...style,
-            color: isFocused ? '#E05D5D' : '#E05D5D',
-            transition: 'color 0.2s',
-
-            '&:hover': {
-                color: isFocused ? '#E05D5D' : '#E05D5D',
-            },
-        }),
-    };
 
     return (
         <div className="personalData-container">
+            {showPopUp && (
+                <PopUp message={popUpMessage} onClose={handlePopupClose} onResponse={handleSubmit} />
+            )}
             <div className="personalData-introduction">
                 <h1>Datos Personales</h1>
                 <p> La sección de datos personales es el espacio donde puedes ingresar información esencial sobre ti mismo para mantener los datos de  tu cuenta. Aquí, puedes proporcionar detalles como tu nombre, correo electrónico y una foto de perfil</p>
@@ -137,10 +160,18 @@ export default function PersonalDataContent() {
                             required
                         />
                         <div className="user-formPhoto" onClick={handleUploadImageClick}>
-                            {image ? (
-                                <img src={URL.createObjectURL(image)} alt='imagen mascota' />
+                            {urlImage ? (
+                                <img src={urlImage} alt='imagen mascota' />
                             ) : (
-                                <FaCloudUploadAlt className="icon-load" />
+                                <>
+                                    {image ? (
+                                        <img src={URL.createObjectURL(image)} alt='imagen mascota' />
+                                    ) : (
+                                        <>
+                                            <FaCloudUploadAlt className="icon-load" />
+                                        </>
+                                    )}
+                                </>
                             )}
                         </div>
                     </div>
@@ -151,6 +182,9 @@ export default function PersonalDataContent() {
                                 id="nombre-usuario"
                                 type="text"
                                 required
+                                value={userName}
+                                onChange={handleNombreChange}
+                                readOnly={!edit}
                             />
                         </div>
                         <div className="imput-text">
@@ -159,37 +193,40 @@ export default function PersonalDataContent() {
                                 id="email-usuario"
                                 type="email"
                                 required
+                                value={email}
+                                onChange={handleEmailChange}
+                                readOnly={!edit}
+
                             />
                         </div>
-
                         <div className="imput-text">
                             <label htmlFor="numero-contacto"> Numero de Contacto</label>
                             <input
                                 id="numero-contacto"
                                 type="number"
+                                onChange={handleNumberContactChange}
+                                readOnly={!edit}
+                                value={contactNumber}
                                 className='imput-number'
                                 required />
-                        </div>
-                        <div className="imput-text">
-                            <label htmlFor="provincia">Provincia</label>
-                            <Select
-                                styles={customStyles}
-                                id="provincia"
-                                maxMenuHeight={130}
-                                value={{ value: province, label: province }}
-                                options={optionsProvincias}
-                                onChange={handlePronvincia}
-                                placeholder="Seleccionar provincia ..."
-                                isSearchable
-                            />
+
                         </div>
                     </div>
                 </form>
-                <button
-                    type="submit"
-                    className='btn-publish'> Guardar
-                </button>
+                <div className="button-container">
+                    {edit && (
+                        <button
+                            onClick={handleEdit}
+                            className='btn-publish'> Cancelar
+                        </button>
+                    )}
+                    <button
+                        type="submit"
+                        onClick={edit ? handleUpdateUser : handleEdit}
+                        className='btn-publish'> {edit ? 'Guardar' : 'Editar'}
+                    </button>
+                </div>
             </div>
-        </div>
+        </div >
     )
 }

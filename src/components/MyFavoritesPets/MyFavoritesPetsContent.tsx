@@ -46,7 +46,7 @@ export default function MyFavoritesPetsContent() {
             </div>
             <div className='pet-container'>
                 {favoritesPets.map((pet) => (
-                    <PetCard key={pet.pet_id} pet={pet} myPets={false} myPetsAdopt={false} isFavorite={favoritesPets.some(favoritePetId => favoritePetId.pet_id === pet.pet_id)} />
+                    <PetCard key={pet.pet_id} pet={pet}  myPetsAdopt={false} isFavorite={favoritesPets.some(favoritePetId => favoritePetId.pet_id === pet.pet_id)} />
                 ))}
             </div>
         </div >

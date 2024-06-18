@@ -124,12 +124,13 @@ const AdoptPageContent = () => {
     const customStyles = {
         control: (styles: any) => ({
             ...styles,
-            borderRadius: "15px",
+            borderRadius: "5px",
             border: "1px solid #E05D5D",
             backgroundColor: "#FFF8E5",
+            marginTop: "11px",
             fontSize: "17px",
             outline: "none",
-            width: "255px",
+            width: "260px",
             height: "41px",
             fontFamily: 'Barlow, sans-serif',
             letterSpacing: "0.5px",
@@ -137,7 +138,7 @@ const AdoptPageContent = () => {
             boxShadow: "none",
             cursor: "pointer",
             color: "#225b77",
-
+            fontWeight: "200",
 
             '&:hover': {
                 borderColor: "#E05D5D",
@@ -145,12 +146,12 @@ const AdoptPageContent = () => {
         }),
         input: (style: any) => ({
             ...style,
-
             color: "#225b77"
         }),
         singleValue: (styles: any) => ({
             ...styles,
-            color: "#225b77"
+            color: "#225b77",
+            width: "100%",
         }),
         option: (styles: any, { isSelected }: { isSelected: boolean }) => ({
             ...styles,
@@ -161,7 +162,6 @@ const AdoptPageContent = () => {
             padding: "7px 0px",
             paddingLeft: "20px",
             cursor: "pointer",
-            fontWeight: "600",
 
             '&:hover': {
                 backgroundColor: "#fdd79d"
@@ -169,8 +169,7 @@ const AdoptPageContent = () => {
         }),
         menuList: (style: any) => ({
             ...style,
-            padding: '0',
-            color: "#225b77"
+            padding: '0'
         }),
         menu: (styles: any) => ({
             ...styles,
@@ -318,15 +317,13 @@ return (
                             placeholder="Seleccionar localidad..."
                             isSearchable
                             isClearable
-                            
-                            
                         />
                     </div>
                 </div>
             </div>
             <div className='pet-container'>
             {pets.map((pet) => (
-                <PetCard key={pet.pet_id} pet={pet} myPets={false} myPetsAdopt={false} isFavorite={favoritesPets.some(favoritePetId => favoritePetId === pet.pet_id)} />
+                <PetCard key={pet.pet_id} pet={pet}  myPetsAdopt={false} isFavorite={favoritesPets.some(favoritePetId => favoritePetId === pet.pet_id)} />
              ))}
             </div>
             <Pagination handlePageClick={handlePageClick} totalPage={totalPage}/>

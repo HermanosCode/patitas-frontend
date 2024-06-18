@@ -10,7 +10,7 @@ import { FormPetsProps } from '../../types/FormPetProps';
 
 
 
-export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
+export default function FormPet({ onClose,petType,edit, pet }: FormPetsProps) {
 
     const [image, setImage] = useState<File | null>(null);
     const urlImage = (pet ? pet.pet_photo : "");
@@ -28,6 +28,7 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
     const [location, setLocation] = useState(pet ? pet.pet_location : "");
     const [optionsLocalidad, setOptionsLocalidad] = useState([]);
 
+    
     //Mostrar popUp, indicar mensaje y menu del select
     const [showPopUp, setShowPopUp] = useState(false)
     const [popUpMessage, setPopUpMessage] = useState("")
@@ -197,12 +198,10 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
 
 
 
-
-
     //Logica publicacion mascota
     const handleSubmit = async () => {
 
-        const apiUrl = `${import.meta.env.VITE_BASE_URL}/pet/publish`;
+        const apiUrl = petType !== "lost" ? `${import.meta.env.VITE_BASE_URL}/pet/publish` : `${import.meta.env.VITE_BASE_URL}/lostPets/publish`;
 
         if (image !== null) {
             try {
@@ -229,7 +228,6 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
                     },
                 });
                 if (response.status === 200) {
-                    handlePopUp("Desea publicar la mascota")
                     handlePopUp(response.data.message);
                     handleReset()
 
@@ -257,26 +255,37 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
     //handle para actualizar mascota
     const handleUpdate = async () => {
 
-        const apiUrl = `${import.meta.env.VITE_BASE_URL}/pet/updatePet`;
+        const apiUrl = petType !== "lost" ? `${import.meta.env.VITE_BASE_URL}/pet/updatePet` : `${import.meta.env.VITE_BASE_URL}/lostPets/updateLostPet`;
 
         try {
             const formData = new FormData();
             if (image) {
                 formData.append('pet_photo', (new File([image], image.name)));
             }
-            formData.append('pet_id', pet?.pet_id || '')
-            formData.append('url_image', urlImage)
-            formData.append('pet_name', petName);
-            formData.append('pet_race', petRace);
-            formData.append('pet_age', petAge);
-            formData.append('contact_number', contactNumber);
-            formData.append('pet_gender', genderPet);
-            formData.append('pet_type', typePet);
-            formData.append('pet_disability', disabilityPet ? '1' : '0');
-            formData.append('veterinary_care', veterinaryCare ? '1' : '0');
-            formData.append('pet_description', petInfo);
-            formData.append('pet_province', province);
-            formData.append('pet_location', location);
+            if(petType === "lost"){
+                formData.append('pet_id', pet?.pet_id || '')
+                formData.append('url_image', urlImage)
+                formData.append('pet_name', petName);
+                formData.append('contact_number', contactNumber);
+                formData.append('pet_description', petInfo);
+                formData.append('pet_province', province);
+                formData.append('pet_location', location);
+            } else{
+                formData.append('pet_id', pet?.pet_id || '')
+                formData.append('url_image', urlImage)
+                formData.append('pet_name', petName);
+                formData.append('pet_race', petRace);
+                formData.append('pet_age', petAge);
+                formData.append('contact_number', contactNumber);
+                formData.append('pet_gender', genderPet);
+                formData.append('pet_type', typePet);
+                formData.append('pet_disability', disabilityPet ? '1' : '0');
+                formData.append('veterinary_care', veterinaryCare ? '1' : '0');
+                formData.append('pet_description', petInfo);
+                formData.append('pet_province', province);
+                formData.append('pet_location', location);
+            }
+            
 
 
             const response = await axios.put(apiUrl, formData, {
@@ -414,6 +423,7 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
                     <PopUp message={popUpMessage} onClose={handlePopupClose} onResponse={handleSubmit} />
                 )
             )}
+            {petType !== "lost" ? (
             <form className='form-publishPage'>
                 <input
                     accept="image/*"
@@ -424,7 +434,6 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
                     onChange={handleImageChance}
                     required
                 />
-
                 <div className="header-form">
                     <div className="pet-photo" onClick={handleUploadImageClick}>
                         {edit && !image ? (
@@ -445,6 +454,7 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
                         )}
                     </div>
                 </div>
+
                 <div className="text-container">
                     <div className="imput-text">
                         <label htmlFor="nombre-mascota"> Nombre Mascota</label>
@@ -464,13 +474,13 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
                             styles={customStyles}
                             maxMenuHeight={130}
                             options={edadMascota}
+                            value={ {value : petAge, label: petAge} }
                             required
                             onChange={handlePetAge}
                             placeholder="Seleccionar edad ..."
                             isSearchable
                         />
                     </div>
-
                     <div className="imput-text">
                         <label htmlFor="raza-mascota"> Raza Mascota</label>
                         <input
@@ -488,6 +498,7 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
                             styles={customStyles}
                             maxMenuHeight={130}
                             options={optionsProvincias}
+                            value={ {value : province, label: province} }
                             required
                             onChange={handlePronvincia}
                             placeholder="Seleccionar provincia ..."
@@ -511,6 +522,7 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
                             styles={customStyles}
                             maxMenuHeight={130}
                             options={optionsLocalidad}
+                            value={ {value : location, label: location} }
                             required
                             onChange={handleLocalidad}
                             placeholder="Seleccionar localidad ..."
@@ -622,6 +634,124 @@ export default function FormPet({ onClose, edit, pet }: FormPetsProps) {
                     </div>
                 </div>
             </form>
+            ) : (
+                <form className='form-publishPage'>
+                <input
+                    accept="image/*"
+                    type="file"
+                    id="image-load"
+                    name='image'
+                    hidden
+                    onChange={handleImageChance}
+                    required
+                />
+                <div className="header-form-lost">
+                    <div className="pet-photo" onClick={handleUploadImageClick}>
+                        {edit && !image ? (
+
+                            <img src={urlImage} alt='imagen mascota' />
+                        ) : (
+
+                            <>
+                                {image ? (
+                                    <img src={URL.createObjectURL(image)} alt='imagen mascota' />
+                                ) : (
+                                    <>
+                                        <FaCloudUploadAlt className="icon-load" />
+                                        <p>Subir imagen</p>
+                                    </>
+                                )}
+                            </>
+                        )}
+                    </div>
+                    <div className="footer-form-lost">
+                    <h3>Descripción de la mascota</h3>
+                    <textarea
+                        value={petInfo}
+                        onChange={handlePetInfoChange}
+                        className='text'
+                        required >
+                    </textarea>
+                </div>
+                </div>
+
+                <div className="text-container-lost">
+                    <div className="imput-text">
+                        <label htmlFor="nombre-mascota"> Nombre Mascota</label>
+                        <input
+                            value={petName}
+                            onChange={handleNombreChange}
+                            id="nombre-mascota"
+                            type="text"
+                            required
+                        />
+                    </div>
+                    <div className="imput-text">
+                        <label htmlFor="numero-contacto"> Numero de Contacto</label>
+                        <input
+                            value={contactNumber}
+                            onChange={handleNumberContactChange}
+                            id="numero-contacto"
+                            type="number"
+                            className='imput-number'
+                            required />
+                    </div>
+                    <div className="imput-text">
+                        <label htmlFor="provincia">Provicia</label>
+                        <Select
+                            id="provincia"
+                            styles={customStyles}
+                            maxMenuHeight={130}
+                            options={optionsProvincias}
+                            value={ {value : province, label: province} }
+                            required
+                            onChange={handlePronvincia}
+                            placeholder="Seleccionar provincia ..."
+                            isSearchable
+                        />
+                    </div>
+                    <div className="imput-text">
+                        <label htmlFor="localidad">Localidad</label>
+                        <Select
+                            id='localidad'
+                            styles={customStyles}
+                            maxMenuHeight={130}
+                            options={optionsLocalidad}
+                            value={ {value : location, label: location} }
+                            required
+                            onChange={handleLocalidad}
+                            placeholder="Seleccionar localidad ..."
+                            isSearchable
+                        />
+                    </div>
+                    <div className="imput-checkbox">
+                        <h4><span>Tipo Mascota</span></h4>
+                        <label htmlFor="tipo-mascota-gato">
+                            <input
+                                onChange={() => handleTypePetChange('Gato')}
+                                id="tipo-mascota-gato"
+                                type="radio"
+                                name="group2"
+                                defaultChecked={typePet === "Gato"}
+                                required
+                            /> Gato
+                        </label>
+                        <label htmlFor="tipo-mascota-perro">
+                            <input
+                                onChange={() => handleTypePetChange('Perro')}
+                                id="tipo-mascota-perro"
+                                type="radio"
+                                name="group2"
+                                defaultChecked={typePet === "Perro"}
+                                required
+                            /> Perro
+                        </label>
+                    </div>
+                </div>
+                
+                
+            </form>
+            )}
             {edit ? (
                 <div className='buttons-formPet'>
                     <button

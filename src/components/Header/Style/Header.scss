@@ -9,9 +9,6 @@
     justify-content: center;
     align-items: center;
 
-
-
-
     img {
         height: 70px;
         width: 70px;
@@ -24,8 +21,6 @@
     justify-content: space-between;
     align-items: center;
     background-color: #225b77;
-    padding: 6px;
-
 }
 
 .nav-container {
@@ -36,7 +31,6 @@
     margin-left: auto;
     margin-right: auto;
     padding-right: 260px;
-
 
     a {
         text-decoration: none;
@@ -49,30 +43,23 @@
 
         &::after {
             content: '';
-            /* Contenido vacío para el elemento generado */
             position: absolute;
             bottom: -3px;
-            /* Ajusta la posición de la línea con respecto al texto */
             left: 0;
             width: 100%;
             height: 2px;
-            /* Ajusta el grosor de la línea */
             background-color: #FFF8E5;
             transform: scaleX(0);
-            /* Inicialmente, la línea está "colapsada" */
             transform-origin: bottom right;
             transition: transform 0.4s ease-in-out;
-            /* Agrega una transición suave a la animación */
         }
 
         &:hover::after {
             transform: scaleX(1);
-            /* Al pasar el cursor, la línea se expande hacia la derecha */
             transform-origin: bottom left;
         }
     }
 }
-
 
 .logo-header {
     cursor: pointer;
@@ -91,5 +78,53 @@
         &::after {
             content: none;
         }
+    }
+}
+
+.icon-menu {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+    .nav-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        background-color: #225b77;
+        color: #FFF8E5;
+        top: 90px;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.4s ease-in-out;
+        z-index: 999;
+    }
+
+    .nav-container.open {
+        max-height: 500px;
+        padding: 25px 0px;
+    }
+
+    .icon-menu {
+        display: block;
+        margin-right: 40px;
+        cursor: pointer;
+        font-size: 30px;
+        color:#FFF8E5;
+        padding: 5px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+    }
+
+    .icon-menu:hover{
+        background-color: #FFF8E5;
+        color: #f3b962;
+    }
+
+    .header-container {
+       padding: 20px 0px;
     }
 }

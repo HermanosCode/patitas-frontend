@@ -6,19 +6,11 @@ import AdoptPage from './components/AdoptPage/AdoptPage';
 import MyPetsPublishPage from './components/MyPetsPublish/MyPetsPublishPage';
 import MyFavoritesPetsPage from './components/MyFavoritesPets/MyFavoritesPetsPage';
 import PersonalDataPage from './components/PersonalData/PersonalDataPage';
-
-
-
-
-
-
-
+import LostPetPage from './components/LostPetPage/LostPetPage';
 
 
 function App() {
   
- 
-
   return (
     
     <Routes>
@@ -29,7 +21,7 @@ function App() {
       <Route path='/patitas-favoritas' element={<MyFavoritesPetsPage/>} />
       <Route path='/adoptar-patita' element={<AdoptPage/>} /> 
       <Route path='/publicar-patita' element={<PublishPage/>} />
-      <Route path='/patitas-perdidas' element={<h1>patitas perdidas</h1>} />
+      <Route path='/patitas-perdidas' element={<LostPetPage/>} />
     </Routes>
   )
 } 

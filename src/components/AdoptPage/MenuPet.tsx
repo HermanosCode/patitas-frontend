@@ -3,7 +3,7 @@ import { MenuPetProps } from "../../types/MenuPetProps";
 import { useState } from 'react';
 import { FaWhatsapp } from "react-icons/fa";
 
-const MenuPet = ({ onClose,pet}: MenuPetProps) => {
+const MenuPet = ({ onClose,petType,pet}: MenuPetProps) => {
 
     const [mainImage, setMainImage] = useState(pet.pet_photo);
 
@@ -21,11 +21,13 @@ const MenuPet = ({ onClose,pet}: MenuPetProps) => {
         window.open(whatsappUrl, '_blank');
     }
 
+    const imgStyle = petType !== "lost" ? "img-menuPet" : "img-menuPet-lost"
+
     return (
         <div className="overlay-pet">
             <div className="menu-pet">
-                <div className='img-container'>
-                    <img className="img-menuPet" src={mainImage} alt="imagen-mascota" />
+                
+                    <img className={imgStyle} src={mainImage} alt="imagen-mascota" />
                     {/*}
                     <div className='more-img'>
                         <h3>Mas Fotos</h3>
@@ -35,9 +37,9 @@ const MenuPet = ({ onClose,pet}: MenuPetProps) => {
                         <img className='image-secondary' src="src/images/perro2.jpg" alt="" onClick={() => handleImageClick("src/images/perro2.jpg")}/>
                     </div>
                     */}
-                </div>
-
-                <div className="info-container">
+                
+                {petType !== "lost" ? (
+                    <div className="info-container">
                     <h1>{pet.pet_name}</h1>
                     <div className="data-container">
                         <div className="data">
@@ -77,7 +79,7 @@ const MenuPet = ({ onClose,pet}: MenuPetProps) => {
                             <FaWhatsapp onClick={handleWhatsappClick} className="data-icon" />
                         </div>
                     </div>
-                    <div className='menu-description'>
+                    <div className="menu-description">
                         <h3>Descripcion</h3>
                         <textarea value={pet.pet_description} readOnly />
                     </div>
@@ -85,6 +87,36 @@ const MenuPet = ({ onClose,pet}: MenuPetProps) => {
                         <button onClick={onClose}>Volver</button>
                     </div>
                 </div>
+                ): (
+                    <div className="info-container">
+                    <h1>{pet.pet_name}</h1>
+                    <div className="data-container">
+                        <div className="data">
+                            <h3>Tipo:</h3>
+                            <p>{pet.pet_type}</p>
+                        </div>
+                        <div className='data'>
+                            <h3>Provincia:</h3>
+                            <p>{pet.pet_province}</p>
+                        </div>
+                        <div className='data'>
+                            <h3>Localidad:</h3>
+                            <p>{pet.pet_location}</p>
+                        </div>
+                        <div className="data">
+                            <h3>Contacto</h3>
+                            <FaWhatsapp onClick={handleWhatsappClick} className="data-icon" />
+                        </div>
+                    </div>
+                    <div className="menu-description-lost">
+                        <h3>Descripcion</h3>
+                        <textarea value={pet.pet_description} readOnly />
+                    </div>
+                    <div className='menu-button'>
+                        <button onClick={onClose}>Volver</button>
+                    </div>
+                </div>
+                )}
             </div>
         </div>
     )

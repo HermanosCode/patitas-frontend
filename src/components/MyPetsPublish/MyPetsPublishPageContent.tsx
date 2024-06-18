@@ -83,7 +83,7 @@ const MyPetsPublishPageContent = () => {
             </div>
             <div className='myPetsPublish-pets'>
                 {pets.map((pet) => (
-                    <PetCard key={pet.pet_id} pet={pet} myPets={true} myPetsAdopt={route === "getUserPets" ? false : true}/>
+                    <PetCard key={pet.pet_id} pet={pet} petType='myPets' myPetsAdopt={route === "getUserPets" ? false : true}/>
                 ))}
             </div>
         </div>

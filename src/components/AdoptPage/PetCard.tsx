@@ -16,7 +16,7 @@ import { RiEdit2Fill } from "react-icons/ri";
 import { MdPets } from "react-icons/md";
 
 
-const PetCard = ({ pet, myPets, myPetsAdopt, isFavorite }: PetCardProps) => {
+const PetCard = ({ pet, petType, myPetsAdopt, isFavorite }: PetCardProps) => {
     const [isOpen, setIsOpen] = useState(false)
     const [isEdit, setIsEdit] = useState(false)
     const [isHeartClick, setIsHeartClick] = useState(isFavorite ? true : false);
@@ -91,7 +91,7 @@ const PetCard = ({ pet, myPets, myPetsAdopt, isFavorite }: PetCardProps) => {
 
     const handleDelete = async () => {
         try {
-            const apiUrl = `${import.meta.env.VITE_BASE_URL}/pet/delete`
+            const apiUrl = petType !== "lost" ? `${import.meta.env.VITE_BASE_URL}/pet/delete` : `${import.meta.env.VITE_BASE_URL}/lostPets/deleteLostPet`
             const response = await axios.delete(apiUrl, {
                 data: {
                     pet_id: pet.pet_id,
@@ -170,12 +170,14 @@ const PetCard = ({ pet, myPets, myPetsAdopt, isFavorite }: PetCardProps) => {
 
         <div className='pet-card'>
             {showPopUp && (
-                isDelete ? (
-                    <PopUp message={popUpMessage} onClose={handlePopupClose} onResponse={handleDelete} />
-                ) : (
-                    <PopUp message={popUpMessage} onClose={handlePopupClose} onResponse={handleAdopt} />
-                )
+                <PopUp
+                    message={popUpMessage}
+                    onClose={handlePopupClose}
+                    onResponse={isDelete ? handleDelete : handleAdopt}
+                />
             )}
+
+
             {myPetsAdopt ? (
                 <>
                     <img className="img-card" src={pet.pet_photo} alt="imagen mascota" />
@@ -186,27 +188,29 @@ const PetCard = ({ pet, myPets, myPetsAdopt, isFavorite }: PetCardProps) => {
                         </div>
                     </div>
                     {isOpen && (
-                        <MenuPet onClose={handleClickButton} pet={pet} />
+                        <MenuPet onClose={handleClickButton} petType={petType} pet={pet} />
                     )}
                 </>
             ) : (
-                myPets ? (
+                petType === "myPets" || petType === "lost" ? (
                     <>
                         <img className="img-card" src={pet.pet_photo} alt="imagen mascota" />
                         <div className="card-content">
                             <h1>{pet.pet_name}</h1>
                             <div className="cardPets-buttons">
-                                <BsInfoCircleFill onClick={handleClickButton} className="button-pet info"></BsInfoCircleFill>
-                                <RiEdit2Fill onClick={handleEdit} className="button-pet edit">Editar</RiEdit2Fill>
-                                <MdDelete onClick={handleDeletePet} className="button-pet delete">Eliminar</MdDelete>
-                                <MdPets onClick={handleAdoptPet} className="button-pet adopt " >Adoptado</MdPets>
+                                <BsInfoCircleFill onClick={handleClickButton} className="button-pet info" />
+                                <RiEdit2Fill onClick={handleEdit} className="button-pet edit" />
+                                <MdDelete onClick={handleDeletePet} className="button-pet delete" />
+                                {petType !== "lost" && (
+                                    <MdPets onClick={handleAdoptPet} className="button-pet adopt" />
+                                )}
                             </div>
                             {isOpen && (
-                                <MenuPet onClose={handleClickButton} pet={pet} />
+                                <MenuPet onClose={handleClickButton} petType={petType} pet={pet} />
                             )}
                             {isEdit && (
                                 <div className="overlay-pet">
-                                    <FormPet edit={true} onClose={handleEdit} pet={pet} />
+                                    <FormPet edit={true} onClose={handleEdit} petType={petType} pet={pet} />
                                 </div>
                             )}
                         </div>
@@ -222,7 +226,6 @@ const PetCard = ({ pet, myPets, myPetsAdopt, isFavorite }: PetCardProps) => {
                                     <TbCat className="icon" />
                                 </div>
                                 <div className='icons-right'>
-
                                     {
                                         !isHeartClick ? (
                                             isHeartEmpty ? (
@@ -241,7 +244,7 @@ const PetCard = ({ pet, myPets, myPetsAdopt, isFavorite }: PetCardProps) => {
                                 </div>
                             </div>
                             {isOpen && (
-                                <MenuPet onClose={handleClickButton} pet={pet} />
+                                <MenuPet onClose={handleClickButton} petType={petType} pet={pet} />
                             )}
                             <div className="button-container">
                                 <button onClick={handleClickButton} className='button-card'>Ver más</button>
@@ -250,8 +253,8 @@ const PetCard = ({ pet, myPets, myPetsAdopt, isFavorite }: PetCardProps) => {
                     </>
                 )
             )}
+
         </div>
     )
 }
-
 export default PetCard

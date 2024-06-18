@@ -2,7 +2,7 @@ import { Pet } from "./Pet";
 
 export interface PetCardProps {
     pet: Pet;
-    myPets : boolean;
+    petType? : string
     myPetsAdopt? : boolean
     isFavorite?: boolean
 }
