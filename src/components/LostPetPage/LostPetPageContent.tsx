@@ -22,6 +22,7 @@ export default function LostPetPageContent() {
     const [provinceSearch, setProvinceSearch] = useState<{ value: string } | null>(null);
     const [locationSearch, setLocationSearch] = useState<{ value: string } | null>(null);
     const [petType, setPetType] = useState("")
+    const [searchPetType, setSearchPetType] = useState("");
 
     const [lostPets, setLostPets] = useState<Pet[]>([]);
     const [optionsProvincias, setOptionsProvincia] = useState([])
@@ -47,14 +48,14 @@ export default function LostPetPageContent() {
         setIsActive(false);
     };
 
-
-    const handlePetType = (type: string) => {
-        if (type == petType) {
-            setPetType("")
-        } else if (type !== petType) {
-            setPetType(type)
+    const handleSearchPetType = (type: string) => {
+        if (type == searchPetType) {
+            setSearchPetType("");
+        } else if (type !== searchPetType) {
+            setSearchPetType(type);
         }
     }
+
 
     //Handle tipo mascota change
     const handleTypePetChange = (tipo: string) => {
@@ -254,7 +255,7 @@ export default function LostPetPageContent() {
                     withCredentials: true,
                     params: {
                         page: currentPage,
-                        pet_type: petType,
+                        pet_type: searchPetType,
                         province: provinceSearch?.value,
                         location: locationSearch?.value
                     }
@@ -269,7 +270,7 @@ export default function LostPetPageContent() {
 
         }
         getLostPets();
-    }, [route,currentPage, petType, provinceSearch, locationSearch]);
+    }, [route,currentPage, searchPetType, provinceSearch, locationSearch]);
 
     // Estilos para el componente Select 
     const customStyles = {
@@ -488,11 +489,11 @@ export default function LostPetPageContent() {
                 <h1 className="publish-lostPet">Mascotas en busqueda de su hogar</h1>
                 <div className='search-bar'>
                     <div className='container-buttons'>
-                        <div className={`button-search ${petType === "Perro" ? 'selected' : ''}`} onClick={() => handlePetType('Perro')}>
+                        <div className={`button-search ${searchPetType === "Perro" ? 'selected' : ''}`} onClick={() => handleSearchPetType('Perro')}>
                             <LuDog className="icon-search" />
                             <p>Perro</p>
                         </div>
-                        <div className={`button-search ${petType === "Gato" ? 'selected' : ''}`} onClick={() => handlePetType('Gato')}>
+                        <div className={`button-search ${searchPetType === "Gato" ? 'selected' : ''}`} onClick={() => handleSearchPetType('Gato')}>
                             <TbCat className="icon-search" />
                             <p>Gato</p>
                         </div>
